@@ -325,33 +325,110 @@ textarea {
 
 /*Live Pages*/
 .live-updates-page {
-  margin: auto;
+  margin: 0.5rem auto;
   max-width: 800px;
   padding: 1.5rem;
-}
-
-.live-updates-list {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  align-items: center;
+}
+
+.disaster-table {
+  width: 120%;
+  border-collapse: collapse;
   margin-top: 1rem;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-size: 1.15rem;
 }
 
-.update-card {
-  background-color: #e3f2fd;
+.disaster-table th,
+.disaster-table td {
   padding: 1rem;
-  border-left: 6px solid #2196f3;
-  border-radius: 8px;
+  text-align: center;
+  border-bottom: 1px solid #e2e8f0;
 }
 
-.update-time {
-  font-weight: bold;
-  color: #0d47a1;
+.disaster-table th {
+  background-color: #1e3a8a;
+  color: white;
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
 }
 
-.update-msg {
-  margin: 0.5rem 0 0;
+.disaster-table tr:nth-child(even) {
+  background-color: #f9fafb;
 }
+
+.disaster-table tr:hover {
+  background-color: #f1f5f9;
+  transition: 0.2s;
+}
+
+.live-updates-page p {
+  font-size: 1.1rem;
+  margin-top: 2rem;
+  color: #64748b;
+}
+
+/*Check User Page*/
+.user-details {
+  margin: 2rem auto;
+  max-width: 95%;
+  overflow-x: auto; /* makes table scrollable on small screens */
+}
+
+.user-details h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+  font-size: 1.5rem;
+}
+
+.user-details table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.user-details thead {
+  background: #2c3e50;
+  color: #fff;
+}
+
+.user-details th,
+.user-details td {
+  padding: 12px 16px;
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 0.95rem;
+}
+
+.user-details th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-details td {
+  background: #f9f9f9;
+  color: #333;
+}
+
+.user-details tbody tr:hover td {
+  background: #eef6ff; /* subtle highlight on hover */
+}
+
+.user-details tr:last-child td {
+  border-bottom: none;
+}
+
 
 /*Relief Camps*/
 .action-card p {

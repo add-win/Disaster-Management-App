@@ -46,8 +46,21 @@ export const AdminHome = () => {
           <ActionCard title="Report Disaster" icon="📝" />
         </Link>
         <Link to="/live-updates">
-          <ActionCard title="Live Updates" icon="🚨" />
+          <ActionCard title="Active Disasters" icon="🚨" />
         </Link>
+        <Link to="/status-updates">
+          <ActionCard title="Status Update" icon="🔄" />
+        </Link>
+        <Link to="/list-disasters">
+          <ActionCard title="List of Disasters" icon="📋" />
+        </Link>
+        <Link to='/user-registrations'>
+          <ActionCard title="New User Registration" icon="👥" />
+        </Link>
+        <Link to='/check-user'>
+          <ActionCard title="Check User" icon="🔍" />
+        </Link>
+        
         <Link to="/volunteer">
           <ActionCard title="Volunteer Registration" icon="🤝" />
         </Link>

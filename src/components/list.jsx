@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
-const LiveUpdates = () => {
+const List = () => {
   const [updates, setUpdates] = useState([]);
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ const LiveUpdates = () => {
   useEffect(() => {
     const fetchUpdates = async () => {
       try {
-        const response = await fetch("http://localhost:5000/live-updates");
+        const response = await fetch("http://localhost:5000/all-disasters");
         const data = await response.json();
         setUpdates(data);
       } catch (error) {
@@ -40,8 +40,8 @@ const LiveUpdates = () => {
         <div className="logout-wrapper">
           <button onClick={handleLogout} className="logout-btn">Logout</button>
         </div>
-        <h1>Reported Disasters</h1>
-        <p>Showing all Reported Disasters which are Currently Ongoing.</p>
+        <h1>List of Disasters Occured</h1>
+        <p>Showing all  Disasters which had occured.</p>
       </header>
 
       <div className="live-updates-page">
@@ -57,6 +57,7 @@ const LiveUpdates = () => {
                 <th>Longitude</th>
                 <th>Date</th>
                 <th>Time</th>
+                <th>Death Count</th>
               </tr>
             </thead>
             <tbody>
@@ -76,12 +77,13 @@ const LiveUpdates = () => {
                     })}
                   </td>
                   <td>{new Date(u.reported_at).toLocaleTimeString()}</td>
+                  <td>{u.ddeathcount}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         ) : (
-          <p>No disaster reports yet.</p>
+          <p>No disaster yet.</p>
         )}
       </div>
 
@@ -92,4 +94,4 @@ const LiveUpdates = () => {
   );
 };
 
-export default LiveUpdates;
+export default List;

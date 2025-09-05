@@ -15,13 +15,28 @@ const PublicLogin = () => {
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (username === 'admin' && password === 'admin123') {
-      navigate('/public-home');
-    } else {
-      setError('Invalid username or password.');
+    try {
+      const response = await fetch("http://localhost:5000/public-login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        navigate("/public-home");
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error("Error logging in:", error);
+      setError("Something went wrong. Please try again.");
     }
   };
 
@@ -35,12 +50,12 @@ const PublicLogin = () => {
         <form onSubmit={handleLogin}>
           <div className="form-group">
             <label>Username:</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required />
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required placeholder='Username/Email ID/Phone Number'/>
           </div>
 
           <div className="form-group">
             <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='Password'/>
           </div>
 
           <div className="form-group">

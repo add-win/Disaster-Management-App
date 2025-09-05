@@ -2,16 +2,20 @@ import { useState } from 'react';
 import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Report = () => {
+const UserRegistrations = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        date: '',
-        disasterType: '',
+        name: '',
+        dob: '',
+        mailId: '',
+        phoneNumber: '',
+        houseName: '',
         location: '',
+        panchayathName: '',
         district: '',
-        latitude: '',
-        longitude: ''
+        state: '',
+        password: ''
     });
 
     const handleChange = (e) => {
@@ -20,19 +24,23 @@ const Report = () => {
 
     const handleReset = () => {
         setFormData({
-            date: '',
-            disasterType: '',
+            name: '',
+            dob: '',
+            mailId: '',
+            phoneNumber: '',
+            houseName: '',
             location: '',
+            panchayathName: '',
             district: '',
-            latitude: '',
-            longitude: ''
+            state: '',
+            password: ''
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:5000/report-disaster", {
+            const response = await fetch("http://localhost:5000/new-user", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -41,7 +49,7 @@ const Report = () => {
             const data = await response.json();
 
             if (response.ok) {
-                alert(`Disaster Reported Successfully!\nReport ID: ${data.reportId}`);
+                alert(`New User Registered Successfully!\nUser ID: ${data.userId}`);
                 handleReset();
                 navigate('/admin-home')
             } else {
@@ -63,31 +71,44 @@ const Report = () => {
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
                 </div>
-                <h1>Report Disaster</h1>
-                <p>Please provide the details of the disaster you want to report.</p>
+                <h1>New User Registration</h1>
+                <p>Please provide the details of the user you want to register.</p>
             </header>
 
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Date:</label>
-                    <input type="date" name="date" required value={formData.date} onChange={handleChange} />
+                    <label>Name:</label>
+                    <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder='Enter Name' />
                 </div>
 
                 <div className="form-group">
-                    <label>Disaster Type:</label>
-                    <select name="disasterType" required value={formData.disasterType} onChange={handleChange}>
-                        <option value="">--Select a type--</option>
-                        <option value="Earthquake">Earthquake</option>
-                        <option value="Flood">Flood</option>
-                        <option value="Fire">Fire</option>
-                        <option value="Storm">Storm</option>
-                        <option value="Other">Other</option>
-                    </select>
+                    <label>Date of Birth:</label>
+                    <input type="date" name="dob" required value={formData.dob} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>Mail ID:</label>
+                    <input type="text" name="mailId" placeholder="e.g. user@example.com" required value={formData.mailId} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>Phone Number:</label>
+                    <input type="text" name="phoneNumber" placeholder="e.g. 1234567890" required value={formData.phoneNumber} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>House Name:</label>
+                    <input type="text" name="houseName" placeholder="e.g. ABC Villa" required value={formData.houseName} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
                     <label>Location Name / Area:</label>
                     <input type="text" name="location" placeholder="e.g. Thrissur" required value={formData.location} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>Panchayath Name:</label>
+                    <input type="text" name="panchayathName" placeholder="e.g. ABC Panchayath" required value={formData.panchayathName} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
@@ -112,13 +133,29 @@ const Report = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Latitude:</label>
-                    <input type="number" name="latitude" step="any" placeholder="e.g. 10.5276" required value={formData.latitude} onChange={handleChange} />
+                    <label>State:</label>
+                    <select name="state" required value={formData.state} onChange={handleChange}>
+                        <option value="">--Select a state--</option>
+                        <option value="Kerala">Kerala</option>
+                        <option value="Tamil Nadu">Tamil Nadu</option>
+                        <option value="Karnataka">Karnataka</option>
+                        <option value="Andhra Pradesh">Andhra Pradesh</option>
+                        <option value="Telangana">Telangana</option>
+                        <option value="Goa">Goa</option>
+                        <option value="Maharashtra">Maharashtra</option>
+                        <option value="Gujarat">Gujarat</option>
+                        <option value="Rajasthan">Rajasthan</option>
+                        <option value="Punjab">Punjab</option>
+                        <option value="Haryana">Haryana</option>
+                        <option value="Uttar Pradesh">Uttar Pradesh</option>
+                        <option value="Bihar">Bihar</option>
+                        <option value="West Bengal">West Bengal</option>
+                    </select>
                 </div>
 
                 <div className="form-group">
-                    <label>Longitude:</label>
-                    <input type="number" name="longitude" step="any" placeholder="e.g. 76.2144" required value={formData.longitude} onChange={handleChange} />
+                    <label>Password: (⚠️ Remember this password for future logins)</label>
+                    <input type="password" name="password" placeholder="Enter your password" required value={formData.password} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
@@ -139,4 +176,4 @@ const Report = () => {
     );
 };
 
-export default Report;
+export default UserRegistrations;
