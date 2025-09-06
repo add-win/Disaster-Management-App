@@ -8,52 +8,52 @@ app.use(cors());
 app.use(express.json());
 
 const db = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_DATABASE
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE
 });
 
 // Admin Login API
 app.post('/admin-login', async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    try {
-        const [rows] = await db.query(
-            'SELECT * FROM admins WHERE username = ? AND password = ?',
-            [username, password]
-        );
+  try {
+    const [rows] = await db.query(
+      'SELECT * FROM admins WHERE username = ? AND password = ?',
+      [username, password]
+    );
 
-        if (rows.length > 0) {
-            res.json({ success: true, message: "Login Successful" });
-        } else {
-            res.json({ success: false, message: "Invalid Username or Password" });
-        }
-    } catch (err) {
-        console.error("DB Error:", err);
-        res.status(500).json({ error: "Database Error" });
+    if (rows.length > 0) {
+      res.json({ success: true, message: "Login Successful" });
+    } else {
+      res.json({ success: false, message: "Invalid Username or Password" });
     }
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 // Public Login API
 app.post('/public-login', async (req, res) => {
-    const { username, password } = req.body;
+  const { username, password } = req.body;
 
-    try {
-        const [rows] = await db.query(
-            `SELECT * FROM public WHERE userpass = ? AND (usermail = ? OR userph = ? OR username = ?)`,
-            [password, username, username, username]
-        );
+  try {
+    const [rows] = await db.query(
+      `SELECT * FROM public WHERE userpass = ? AND (usermail = ? OR userph = ? OR username = ?)`,
+      [password, username, username, username]
+    );
 
-        if (rows.length > 0) {
-            res.json({ success: true, message: "Login Successful" });
-        } else {
-            res.json({ success: false, message: "Invalid Username or Password" });
-        }
-    } catch (err) {
-        console.error("DB Error:", err);
-        res.status(500).json({ error: "Database Error" });
+    if (rows.length > 0) {
+      res.json({ success: true, message: "Login Successful" });
+    } else {
+      res.json({ success: false, message: "Invalid Username or Password" });
     }
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 // Report Disaster API
@@ -101,6 +101,10 @@ app.post("/status-disaster", async (req, res) => {
       [status, deathCount, reportId]
     );
 
+    await db.query(
+      `DELETE v FROM volunteer v JOIN disaster d ON v.disasterid = d.did WHERE d.dstatus = 'Inactive';`
+    );
+
     if (result.affectedRows > 0) {
       res.json({ success: true });
     } else {
@@ -130,8 +134,8 @@ app.post("/new-user", async (req, res) => {
     const { name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password } = req.body;
     try {
         const [result] = await db.query(
-            `INSERT INTO public (username, userdob, usermail, userph, userhouse, userlocation, userpanchayath, userdistrict, userstate, userpass) 
-             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+            `INSERT INTO public(username, userdob, usermail, userph, userhouse, userlocation, userpanchayath, userdistrict, userstate, userpass) 
+             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
             [name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password]
         );
         res.json({ success: true, userId: result.insertId });
@@ -152,8 +156,8 @@ app.get("/check-user", async (req, res) => {
 
     try {
         const [rows] = await db.query(
-            `SELECT * FROM public WHERE LOWER(${label}) LIKE LOWER(?)`,
-            [`%${inputValue}%`]
+            `SELECT * FROM public WHERE LOWER(${ label }) LIKE LOWER(?)`,
+            [`% ${ inputValue } % `]
         );
 
         if (rows.length > 0) {
@@ -183,6 +187,21 @@ app.post("/volunteers", async (req, res) => {
     }
 });
 
+// Victim Registration
+app.post("/victims", async (req, res) => {
+    const { id, disasterid, status } = req.body;
+
+    try {
+        await db.query(
+            "INSERT INTO victim (userid, disasterid, status) VALUES (?, ?, ?)",
+            [id, disasterid, status]
+        );
+        res.json({ success: true, message: "Victim Registered Successfully" });
+    } catch (err) {
+        console.error("DB Error:", err);
+        res.status(500).json({ success: false });
+    }
+});
 
 app.listen(5000, () => {
     console.log("Server running on port 5000");

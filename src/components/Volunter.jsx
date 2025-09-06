@@ -33,26 +33,28 @@ const Volunteers = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.willing) {
-            alert("Please confirm willingness to participate!");
+            alert("Please confirm willingness to participate as a Volunteer!");
             return;
         }
 
-        try {
-            const res = await fetch("http://localhost:5000/volunteers", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
-            });
+        else {
+            try {
+                const res = await fetch("http://localhost:5000/volunteers", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
 
-            const data = await res.json();
-            if (data.success) {
-                alert("Volunteer Registered Successfully!");
-                navigate("/admin-home");
-            } else {
-                alert("Registration failed. Check your details and try again.");
+                const data = await res.json();
+                if (data.success) {
+                    alert("Volunteer Registered Successfully!");
+                    navigate("/admin-home");
+                } else {
+                    alert("Registration failed. Check your details and try again.");
+                }
+            } catch (err) {
+                console.error("Submit Error:", err);
             }
-        } catch (err) {
-            console.error("Submit Error:", err);
         }
     };
 
@@ -148,7 +150,6 @@ const Volunteers = () => {
                         <button
                             type="submit"
                             className='login-button green'
-                            disabled={!formData.willing}
                         >
                             Submit
                         </button>

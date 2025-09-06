@@ -1,12 +1,74 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Victims = () => {
     const navigate = useNavigate();
 
+    const [disaster, setDisasters] = useState([]);
+    const [formData, setFormData] = useState({
+        id: "",
+        disasterid: "",
+        status: "",
+        willing: false
+    });
+
+    useEffect(() => {
+        fetch("http://localhost:5000/live-updates")
+            .then(res => res.json())
+            .then(data => {
+                setDisasters(data);
+            })
+            .catch(err => console.error("Fetch Error:", err));
+    }, []);
+
+    const handleChange = (e) => {
+        const { name, value, type, checked } = e.target;
+        setFormData({
+            ...formData,
+            [name]: type === "checkbox" ? checked : value
+        });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!formData.willing) {
+            alert("Please fill checkbox to register as Victim!");
+            return;
+        }
+
+        else {
+            try {
+                const res = await fetch("http://localhost:5000/victims", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await res.json();
+                if (data.success) {
+                    alert("Volunteer Registered Successfully!");
+                    navigate("/admin-home");
+                } else {
+                    alert("Registration failed. Check your details and try again.");
+                }
+            } catch (err) {
+                console.error("Submit Error:", err);
+            }
+        }
+    };
+
     const handleLogout = () => {
         navigate('/admin-login');
+    };
+
+    const handleReset = () => {
+        setFormData({
+            id: "",
+            disasterid: "",
+            role: "",
+            willing: false
+        });
     };
 
     return (
@@ -19,40 +81,39 @@ const Victims = () => {
                 <p>Please provide your details to register as a victim.</p>
             </header>
 
-            <form className="report-form">
+            <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="name">Name:</label>
-                    <input type="text" id="name" name="name" placeholder="e.g. John Doe" required />
+                    <label>User ID:</label>
+                    <input
+                        type="number"
+                        name="id"
+                        value={formData.id}
+                        onChange={handleChange}
+                        placeholder="e.g. 12345"
+                        required
+                    />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="age">Age:</label>
-                    <input type="number" id="age" name="age" placeholder="e.g. 30" required />
+                    <label>Disaster Name & Type:</label>
+                    <select
+                        name="disasterid"
+                        value={formData.disastername}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">-- Select Active Disaster --</option>
+                        {disaster.map(d => (
+                            <option key={d.did} value={d.did}>
+                                {d.dlocation} - {d.dtype}
+                            </option>
+                        ))}
+                    </select>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="location">Location Name / Area:</label>
-                    <input type="text" id="location" name="location" placeholder="e.g. Thrissur" required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="district">District:</label>
-                    <input type="text" id="district" name="district" placeholder="e.g. Thrissur" required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="email">Email ID:</label>
-                    <input type="email" id="email" name="email" placeholder="e.g. john.doe@example.com" required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="phone">Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" placeholder="e.g. +1 234 567 8901" required />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="status">Current Status:</label>
-                    <select id="status" name="status" required>
+                    <label>Current Status:</label>
+                    <select name="status" required value={formData.status} onChange={handleChange}>
                         <option value="">--Select your status--</option>
                         <option value="help">Need Urgent Help</option>
                         <option value="missing">Missing</option>
@@ -66,32 +127,34 @@ const Victims = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
-                    <label htmlFor="cause">Part of Which Disaster:</label>
-                    <select id="cause" name="cause" required>
-                        <option value="">--Select name of affected Disaster--</option>
-                        <option value="flood">Flood</option>
-                        <option value="earthquake">Earthquake</option>
-                        <option value="fire">Fire</option>
-                        <option value="landslide">Landslide</option>
-                        <option value="storm">Storm</option>
-                        <option value="tsunami">Tsunami</option>
-                        <option value="drought">Drought</option>
-                        <option value="cyclone">Cyclone</option>
-                        <option value="volcanic-eruption">Volcanic Eruption</option>
-                        <option value="other">Other</option>
-                    </select>
+                <div className="form-group-inline">
+                    <input
+                        type="checkbox"
+                        name="willing"
+                        checked={formData.willing}
+                        onChange={handleChange}
+                        style={{ width: "1.2rem", height: "1.2rem" }}
+                    />
+                    <label htmlFor="willing">
+                        I am a victim of this disaster and I need assistance.
+                    </label>
                 </div>
 
                 <div className="form-group">
                     <div className='form-buttons'>
                         <Link to="/admin-home">
-                            <button className='login-button black'>Back</button>
+                            <button type="button" className='login-button black'>Back</button>
                         </Link>
-                        <button type="submit" className='login-button green'>Submit</button>
-                        <button type="reset" className='login-button red'>Reset</button>
+                        <button
+                            type="submit"
+                            className='login-button green'
+                        >
+                            Submit
+                        </button>
+                        <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
                     </div>
                 </div>
+
             </form>
 
             <footer>
