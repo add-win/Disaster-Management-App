@@ -135,12 +135,12 @@ app.get("/all-disasters", async (req, res) => {
 
 // New User Registration API
 app.post("/new-user", async (req, res) => {
-  const { name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password } = req.body;
+  const { name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, gender, password } = req.body;
   try {
     const [result] = await db.query(
-      `INSERT INTO public(username, userdob, usermail, userph, userhouse, userlocation, userpanchayath, userdistrict, userstate, userpass) 
-             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      [name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password]
+      `INSERT INTO public(username, userdob, usermail, userph, userhouse, userlocation, userpanchayath, userdistrict, userstate, usergender, userpass) 
+             VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, gender, password]
     );
     res.json({ success: true, userId: result.insertId });
   } catch (err) {
@@ -160,8 +160,8 @@ app.get("/check-user", async (req, res) => {
 
   try {
     const [rows] = await db.query(
-      `SELECT * FROM public WHERE LOWER(${label}) LIKE LOWER(?)`,
-      [`% ${inputValue} % `]
+      `SELECT * FROM public WHERE (${label}) LIKE (?)`,
+      [`%${inputValue}%`]
     );
 
     if (rows.length > 0) {
@@ -255,14 +255,55 @@ app.post("/update-victims", async (req, res) => {
 // List of Victims with Public Details
 app.get("/all-victims", async (req, res) => {
   try {
-    const [rows] = await db.query(`
-    SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type FROM victim v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;
-`);
+    const [rows] = await db.query(
+      `SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type FROM victim v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;`
+    );
 
     res.json(rows);
   } catch (err) {
     console.error("Error Fetching Victims with Public:", err);
     res.status(500).json({ error: "Database Error" });
+  }
+});
+
+//Count of Volunteers by Role
+app.get("/volunteer-count", async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      `SELECT 
+    d.did,
+    d.dlocation,
+    d.dtype,
+    v.role,
+    SUM(CASE WHEN p.usergender = 'Male' THEN 1 ELSE 0 END) AS male_count,
+    SUM(CASE WHEN p.usergender = 'Female' THEN 1 ELSE 0 END) AS female_count,
+    COUNT(*) AS total
+FROM volunteer v
+INNER JOIN disaster d ON v.disasterid = d.did
+INNER JOIN public p ON v.userid = p.idpublic
+GROUP BY d.did, v.role
+ORDER BY d.did ASC;`
+    );
+    res.json(rows);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Server Error");
+  }
+});
+
+//New Camp Registration
+app.post("/new-camp", async (req, res) => {
+  const { campName, location, panchayathName, district, state, capacity, wardNumber, phoneNumber, rooms, washrooms, kitchen } = req.body;
+
+  try {
+    const [result] = await db.query(
+      "INSERT INTO reliefcamp (rname, rlocation, rpan, rdis, rstate, rpeople, rward, rph, rroom, rwash, rkit) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+      [campName, location, panchayathName, district, state, capacity, wardNumber, phoneNumber, rooms, washrooms, kitchen]
+    );
+    res.json({ success: true, campId: result.insertId });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ success: false });
   }
 });
 

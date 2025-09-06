@@ -72,6 +72,7 @@ const VolunteerList = () => {
                 <th>Location</th>
                 <th>District</th>
                 <th>Age</th>
+                <th>Gender</th>
               </tr>
             </thead>
             <tbody>
@@ -87,6 +88,7 @@ const VolunteerList = () => {
                   <td>{v.userlocation}</td>
                   <td>{v.userdistrict}</td>
                   <td>{calculateAge(v.userdob)}</td>
+                  <td>{v.usergender}</td>
                 </tr>
               ))}
             </tbody>

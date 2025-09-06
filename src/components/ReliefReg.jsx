@@ -2,21 +2,21 @@ import { useState } from 'react';
 import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const UserRegistrations = () => {
+const ReliefRegistrations = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        name: '',
-        dob: '',
-        mailId: '',
-        phoneNumber: '',
-        houseName: '',
+        campName: '',
         location: '',
         panchayathName: '',
         district: '',
         state: '',
-        gender: '',
-        password: ''
+        capacity: '',
+        wardNumber: '',
+        phoneNumber: '',
+        rooms: '',
+        washrooms: '',
+        kitchen: ''
     });
 
     const handleChange = (e) => {
@@ -25,24 +25,24 @@ const UserRegistrations = () => {
 
     const handleReset = () => {
         setFormData({
-            name: '',
-            dob: '',
-            mailId: '',
-            phoneNumber: '',
-            houseName: '',
+            campName: '',
             location: '',
             panchayathName: '',
             district: '',
             state: '',
-            gender: '',
-            password: ''
+            capacity: '',
+            wardNumber: '',
+            phoneNumber: '',
+            rooms: '',
+            washrooms: '',
+            kitchen: ''
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:5000/new-user", {
+            const response = await fetch("http://localhost:5000/new-camp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -51,7 +51,7 @@ const UserRegistrations = () => {
             const data = await response.json();
 
             if (response.ok) {
-                alert(`New User Registered Successfully!\nUser ID: ${data.userId}`);
+                alert(`New Camp Registered Successfully!\nCamp ID: ${data.campId}`);
                 handleReset();
                 navigate('/admin-home')
             } else {
@@ -73,44 +73,29 @@ const UserRegistrations = () => {
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
                 </div>
-                <h1>New User Registration</h1>
-                <p>Please provide the details of the user you want to register.</p>
+                <h1>New Relief Camp Registration</h1>
+                <p>Please provide the details of the camp you want to register.</p>
             </header>
 
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Name:</label>
-                    <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder='Enter Name' />
+                    <input type="text" name="campName" required value={formData.campName} onChange={handleChange} placeholder='Enter Name' />
                 </div>
 
                 <div className="form-group">
-                    <label>Date of Birth:</label>
-                    <input type="date" name="dob" required value={formData.dob} onChange={handleChange} />
+                    <label>Location:</label>
+                    <input type="text" name="location" required value={formData.location} onChange={handleChange} placeholder='Enter Location' />
                 </div>
 
                 <div className="form-group">
-                    <label>Mail ID:</label>
-                    <input type="text" name="mailId" placeholder="e.g. user@example.com" required value={formData.mailId} onChange={handleChange} />
+                    <label>Name of Panchayath:</label>
+                    <input type="text" name="panchayathName" required value={formData.panchayathName} onChange={handleChange} placeholder='Enter Panchayath Name' />
                 </div>
 
                 <div className="form-group">
-                    <label>Phone Number:</label>
-                    <input type="text" name="phoneNumber" placeholder="e.g. 1234567890" required value={formData.phoneNumber} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label>House Name:</label>
-                    <input type="text" name="houseName" placeholder="e.g. ABC Villa" required value={formData.houseName} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label>Location Name / Area:</label>
-                    <input type="text" name="location" placeholder="e.g. Thrissur" required value={formData.location} onChange={handleChange} />
-                </div>
-
-                <div className="form-group">
-                    <label>Panchayath Name:</label>
-                    <input type="text" name="panchayathName" placeholder="e.g. ABC Panchayath" required value={formData.panchayathName} onChange={handleChange} />
+                    <label>Ward Number:</label>
+                    <input type="number" name="wardNumber" required value={formData.wardNumber} onChange={handleChange} placeholder='Enter Ward Number' />
                 </div>
 
                 <div className="form-group">
@@ -156,17 +141,28 @@ const UserRegistrations = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Gender:</label>
-                    <select name="gender" required value={formData.gender} onChange={handleChange}>
-                        <option value="">--Select Gender--</option>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
+                    <label>Phone Number:</label>
+                    <input type="text" name="phoneNumber" placeholder="e.g. 1234567890" required value={formData.phoneNumber} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
-                    <label>Password: (⚠️ Remember this password for future logins)</label>
-                    <input type="password" name="password" placeholder="Enter your password" required value={formData.password} onChange={handleChange} />
+                    <label>Number of People can be Accommodated:</label>
+                    <input type="number" name="capacity" placeholder="Enter Capacity" required value={formData.capacity} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>Number of Rooms:</label>
+                    <input type="number" name="rooms" placeholder="e.g. 5" required value={formData.rooms} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>Number of Washrooms:</label>
+                    <input type="number" name="washrooms" placeholder="e.g. 2" required value={formData.washrooms} onChange={handleChange} />
+                </div>
+
+                <div className="form-group">
+                    <label>Number of Kitchen:</label>
+                    <input type="number" name="kitchen" placeholder="e.g. 1" required value={formData.kitchen} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
@@ -187,4 +183,4 @@ const UserRegistrations = () => {
     );
 };
 
-export default UserRegistrations;
+export default ReliefRegistrations;
