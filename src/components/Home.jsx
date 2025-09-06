@@ -57,16 +57,28 @@ export const AdminHome = () => {
         <Link to='/user-registrations'>
           <ActionCard title="New User Registration" icon="👥" />
         </Link>
-        <Link to='/check-user'>
-          <ActionCard title="Check User" icon="🔍" />
-        </Link>
         <Link to="/volunteer">
           <ActionCard title="Volunteer Registration" icon="🤝" />
+        </Link>
+        <Link to="/volunteer-update">
+          <ActionCard title="Volunteer Update" icon="🆙" />
+        </Link>
+        <Link to='/volunteer-list'>
+          <ActionCard title="Volunteer List" icon="📋" />
+        </Link>
+        <Link to='/check-user'>
+          <ActionCard title="Check User" icon="🔍" />
         </Link>
         <Link to="/victim-support">
           <ActionCard title="Victim Registration" icon="🆘" />
         </Link>
-        
+        <Link to='/victim-update'>
+          <ActionCard title="Victim Update" icon="🆙" />
+        </Link>
+        <Link to='/victim-list'>
+          <ActionCard title="Victim List" icon="📋" />
+        </Link>
+
         <Link to="/relief-camp">
           <ActionCard title="Relief Camp" icon="🧰" />
         </Link>

@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Victims = () => {
+const VolunteerUpdate = () => {
     const navigate = useNavigate();
 
     const [disaster, setDisasters] = useState([]);
     const [formData, setFormData] = useState({
         id: "",
         disasterid: "",
-        status: "",
+        role: "",
         willing: false
     });
 
@@ -33,13 +33,13 @@ const Victims = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.willing) {
-            alert("Please fill checkbox to register as Victim!");
+            alert("Please fill checkbox to update your status!");
             return;
         }
 
         else {
             try {
-                const res = await fetch("http://localhost:5000/victims", {
+                const res = await fetch("http://localhost:5000/update-volunteers", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)
@@ -47,10 +47,10 @@ const Victims = () => {
 
                 const data = await res.json();
                 if (data.success) {
-                    alert("Victim Registered Successfully!");
+                    alert("Volunteer Status Updated Successfully!");
                     navigate("/admin-home");
                 } else {
-                    alert("Registration failed. Check your details and try again.");
+                    alert("Update failed. Check your details and try again.");
                 }
             } catch (err) {
                 console.error("Submit Error:", err);
@@ -66,7 +66,7 @@ const Victims = () => {
         setFormData({
             id: "",
             disasterid: "",
-            status: "",
+            role: "",
             willing: false
         });
     };
@@ -77,8 +77,8 @@ const Victims = () => {
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
                 </div>
-                <h1>Victim Registration</h1>
-                <p>Please provide your details to register as a victim.</p>
+                <h1>Volunteer Status Updation</h1>
+                <p>Please provide your details to update your status as a volunteer.</p>
             </header>
 
             <form className="report-form" onSubmit={handleSubmit}>
@@ -112,18 +112,20 @@ const Victims = () => {
                 </div>
 
                 <div className="form-group">
-                    <label>Current Status:</label>
-                    <select name="status" required value={formData.status} onChange={handleChange}>
-                        <option value="">--Select your status--</option>
-                        <option value="Help">Need Urgent Help</option>
-                        <option value="Missing">Missing</option>
-                        <option value="Rescued">Rescued</option>
-                        <option value="Relief-Camp">Relief-Camp</option>
-                        <option value="Deceased">Deceased</option>
-                        <option value="Hospitalized">Hospitalized</option>
-                        <option value="Safe">Safe</option>
-                        <option value="Unharmed">Unharmed</option>
-                        <option value="Not-Available">Other</option>
+                    <label>Preferred Role:</label>
+                    <select
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        required
+                    >
+                        <option value="">-- Select --</option>
+                        <option value="Rescue">Rescue Operations</option>
+                        <option value="Medical">Medical Aid</option>
+                        <option value="Logistics">Logistics Support</option>
+                        <option value="Food">Food & Supply</option>
+                        <option value="General">General Assistance</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 
@@ -136,7 +138,7 @@ const Victims = () => {
                         style={{ width: "1.2rem", height: "1.2rem" }}
                     />
                     <label htmlFor="willing">
-                        I am a victim of this disaster and I need assistance.
+                        I here by declare that the information provided is true.
                     </label>
                 </div>
 
@@ -164,4 +166,4 @@ const Victims = () => {
     );
 };
 
-export default Victims;
+export default VolunteerUpdate;

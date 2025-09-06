@@ -120,12 +120,12 @@ const Volunteers = () => {
                         required
                     >
                         <option value="">-- Select --</option>
-                        <option value="rescue">Rescue Operations</option>
-                        <option value="medical">Medical Aid</option>
-                        <option value="logistics">Logistics Support</option>
-                        <option value="food">Food & Supply</option>
-                        <option value="general">General Assistance</option>
-                        <option value="other">Other</option>
+                        <option value="Rescue">Rescue Operations</option>
+                        <option value="Medical">Medical Aid</option>
+                        <option value="Logistics">Logistics Support</option>
+                        <option value="Food">Food & Supply</option>
+                        <option value="General">General Assistance</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
 

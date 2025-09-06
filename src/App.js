@@ -9,9 +9,13 @@ import LiveUpdates from './components/Live.jsx';
 import StatusUpdates from './components/Status.jsx';
 import List from './components/list.jsx';
 import UserRegistrations from './components/User.jsx';
-import CheckUser from './components/CheckUser.jsx';
 import Volunteers from './components/Volunter.jsx';
+import VolunteerUpdate from './components/VolunterUp.jsx';
+import VolunteerList from './components/LVolunteer.jsx';
+import CheckUser from './components/CheckUser.jsx';
 import Victims from './components/Victim.jsx';
+import Victimu from './components/VictimUp.jsx';
+import VictimList from './components/LVictim.jsx';
 
 import ReliefCamp from './components/Relief.jsx';
 import ResourceAllocation from './components/Resource.jsx';
@@ -32,10 +36,14 @@ function App() {
         <Route path='/status-updates' element={<StatusUpdates />} />
         <Route path='/list-disasters' element={<List />} />
         <Route path='/user-registrations' element={<UserRegistrations />} />
-        <Route path='/check-user' element={<CheckUser />} />
         <Route path='/volunteer' element={<Volunteers />} />
+        <Route path='/volunteer-update' element={<VolunteerUpdate />} />
+        <Route path='/volunteer-list' element={<VolunteerList />} />
+        <Route path='/check-user' element={<CheckUser />} />
         <Route path='/victim-support' element={<Victims />} />
-        
+        <Route path='/victim-update' element={<Victimu />} />
+        <Route path='/victim-list' element={<VictimList />} />
+
         <Route path='/relief-camp' element={<ReliefCamp />} />
         <Route path='/resource-allocation' element={<ResourceAllocation />} />
         <Route path='/safety-tips' element={<SafetyTips />} />

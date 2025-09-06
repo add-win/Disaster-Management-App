@@ -105,6 +105,10 @@ app.post("/status-disaster", async (req, res) => {
       `DELETE v FROM volunteer v JOIN disaster d ON v.disasterid = d.did WHERE d.dstatus = 'Inactive';`
     );
 
+    await db.query(
+      `DELETE vi FROM victim vi JOIN disaster di ON vi.disasterid = di.did WHERE di.dstatus = 'Inactive';`
+    );
+
     if (result.affectedRows > 0) {
       res.json({ success: true });
     } else {
@@ -131,78 +135,137 @@ app.get("/all-disasters", async (req, res) => {
 
 // New User Registration API
 app.post("/new-user", async (req, res) => {
-    const { name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password } = req.body;
-    try {
-        const [result] = await db.query(
-            `INSERT INTO public(username, userdob, usermail, userph, userhouse, userlocation, userpanchayath, userdistrict, userstate, userpass) 
+  const { name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password } = req.body;
+  try {
+    const [result] = await db.query(
+      `INSERT INTO public(username, userdob, usermail, userph, userhouse, userlocation, userpanchayath, userdistrict, userstate, userpass) 
              VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-            [name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password]
-        );
-        res.json({ success: true, userId: result.insertId });
-    } catch (err) {
-        console.error("DB Error:", err);
-        res.status(500).json({ error: "Database Error" });
-    }
+      [name, dob, mailId, phoneNumber, houseName, location, panchayathName, district, state, password]
+    );
+    res.json({ success: true, userId: result.insertId });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 // Check User Details API
 app.get("/check-user", async (req, res) => {
-    const { label, inputValue } = req.query;
+  const { label, inputValue } = req.query;
 
-    const allowedLabels = ["idpublic", "username", "usermail", "userph", "userhouse", "userlocation"];
-    if (!allowedLabels.includes(label)) {
-        return res.status(400).json({ success: false, message: "Invalid label" });
+  const allowedLabels = ["idpublic", "username", "usermail", "userph", "userhouse", "userlocation"];
+  if (!allowedLabels.includes(label)) {
+    return res.status(400).json({ success: false, message: "Invalid label" });
+  }
+
+  try {
+    const [rows] = await db.query(
+      `SELECT * FROM public WHERE LOWER(${label}) LIKE LOWER(?)`,
+      [`% ${inputValue} % `]
+    );
+
+    if (rows.length > 0) {
+      res.json({ success: true, users: rows });
+    } else {
+      res.json({ success: false, message: "User Not Found" });
     }
-
-    try {
-        const [rows] = await db.query(
-            `SELECT * FROM public WHERE LOWER(${ label }) LIKE LOWER(?)`,
-            [`% ${ inputValue } % `]
-        );
-
-        if (rows.length > 0) {
-            res.json({ success: true, users: rows });
-        } else {
-            res.json({ success: false, message: "User Not Found" });
-        }
-    } catch (err) {
-        console.error("DB Error:", err);
-        res.status(500).json({ error: "Database Error" });
-    }
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 // Volunteer Registration
 app.post("/volunteers", async (req, res) => {
-    const { id, disasterid, role } = req.body;
+  const { id, disasterid, role } = req.body;
 
-    try {
-        await db.query(
-            "INSERT INTO volunteer (userid, disasterid, role) VALUES (?, ?, ?)",
-            [id, disasterid, role]
-        );
-        res.json({ success: true, message: "Volunteer Registered Successfully" });
-    } catch (err) {
-        console.error("DB Error:", err);
-        res.status(500).json({ success: false });
-    }
+  try {
+    await db.query(
+      "INSERT INTO volunteer (userid, disasterid, role) VALUES (?, ?, ?)",
+      [id, disasterid, role]
+    );
+    res.json({ success: true, message: "Volunteer Registered Successfully" });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// Volunteer Update
+app.post("/update-volunteers", async (req, res) => {
+  const { id, disasterid, role } = req.body;
+
+  try {
+    await db.query(
+      "UPDATE volunteer SET role = ?, disasterid = ? WHERE userid = ? ",
+      [role, disasterid, id]
+    );
+    res.json({ success: true, message: "Volunteer Status Updated Successfully" });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// List of Volunteers with Public Details
+app.get("/all-volunteers", async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+            SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type FROM volunteer v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;
+        `);
+    res.json(rows);
+  } catch (err) {
+    console.error("Error Fetching Volunteers with Public:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 // Victim Registration
 app.post("/victims", async (req, res) => {
-    const { id, disasterid, status } = req.body;
+  const { id, disasterid, status } = req.body;
 
-    try {
-        await db.query(
-            "INSERT INTO victim (userid, disasterid, status) VALUES (?, ?, ?)",
-            [id, disasterid, status]
-        );
-        res.json({ success: true, message: "Victim Registered Successfully" });
-    } catch (err) {
-        console.error("DB Error:", err);
-        res.status(500).json({ success: false });
-    }
+  try {
+    await db.query(
+      "INSERT INTO victim (userid, disasterid, status) VALUES (?, ?, ?)",
+      [id, disasterid, status]
+    );
+    res.json({ success: true, message: "Victim Registered Successfully" });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// Victim Update
+app.post("/update-victims", async (req, res) => {
+  const { id, status } = req.body;
+
+  try {
+    await db.query(
+      "UPDATE victim SET status = ? WHERE userid = ?",
+      [status, id]
+    );
+    res.json({ success: true, message: "Victim Status Updated Successfully" });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// List of Victims with Public Details
+app.get("/all-victims", async (req, res) => {
+  try {
+    const [rows] = await db.query(`
+    SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type FROM victim v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;
+`);
+
+    res.json(rows);
+  } catch (err) {
+    console.error("Error Fetching Victims with Public:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
 });
 
 app.listen(5000, () => {
-    console.log("Server running on port 5000");
+  console.log("Server running on port 5000");
 });

@@ -1,26 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Victims = () => {
+const Victimu = () => {
     const navigate = useNavigate();
 
-    const [disaster, setDisasters] = useState([]);
     const [formData, setFormData] = useState({
         id: "",
-        disasterid: "",
         status: "",
         willing: false
     });
-
-    useEffect(() => {
-        fetch("http://localhost:5000/live-updates")
-            .then(res => res.json())
-            .then(data => {
-                setDisasters(data);
-            })
-            .catch(err => console.error("Fetch Error:", err));
-    }, []);
 
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
@@ -33,13 +22,13 @@ const Victims = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.willing) {
-            alert("Please fill checkbox to register as Victim!");
+            alert("Please fill checkbox to update your status!");
             return;
         }
 
         else {
             try {
-                const res = await fetch("http://localhost:5000/victims", {
+                const res = await fetch("http://localhost:5000/update-victims", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData)
@@ -47,10 +36,10 @@ const Victims = () => {
 
                 const data = await res.json();
                 if (data.success) {
-                    alert("Victim Registered Successfully!");
+                    alert("Victim Status Updated Successfully!");
                     navigate("/admin-home");
                 } else {
-                    alert("Registration failed. Check your details and try again.");
+                    alert("Update failed. Check your details and try again.");
                 }
             } catch (err) {
                 console.error("Submit Error:", err);
@@ -65,7 +54,6 @@ const Victims = () => {
     const handleReset = () => {
         setFormData({
             id: "",
-            disasterid: "",
             status: "",
             willing: false
         });
@@ -77,8 +65,8 @@ const Victims = () => {
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
                 </div>
-                <h1>Victim Registration</h1>
-                <p>Please provide your details to register as a victim.</p>
+                <h1>Victim Status Updation</h1>
+                <p>Please provide your details to update your status as a victim.</p>
             </header>
 
             <form className="report-form" onSubmit={handleSubmit}>
@@ -92,23 +80,6 @@ const Victims = () => {
                         placeholder="e.g. 12345"
                         required
                     />
-                </div>
-
-                <div className="form-group">
-                    <label>Disaster Name & Type:</label>
-                    <select
-                        name="disasterid"
-                        value={formData.disastername}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">-- Select Active Disaster --</option>
-                        {disaster.map(d => (
-                            <option key={d.did} value={d.did}>
-                                {d.dlocation} - {d.dtype}
-                            </option>
-                        ))}
-                    </select>
                 </div>
 
                 <div className="form-group">
@@ -136,7 +107,7 @@ const Victims = () => {
                         style={{ width: "1.2rem", height: "1.2rem" }}
                     />
                     <label htmlFor="willing">
-                        I am a victim of this disaster and I need assistance.
+                        I here by declare that the information provided is true.
                     </label>
                 </div>
 
@@ -164,4 +135,4 @@ const Victims = () => {
     );
 };
 
-export default Victims;
+export default Victimu;
