@@ -100,6 +100,14 @@ textarea {
   margin-bottom: 1.2rem;
 }
 
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin: 1rem 0;
+}
+
 .form-buttons {
   display: flex;
   justify-content: center;

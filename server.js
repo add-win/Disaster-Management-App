@@ -145,7 +145,6 @@ app.post("/new-user", async (req, res) => {
 app.get("/check-user", async (req, res) => {
     const { label, inputValue } = req.query;
 
-    // Whitelist columns
     const allowedLabels = ["idpublic", "username", "usermail", "userph", "userhouse", "userlocation"];
     if (!allowedLabels.includes(label)) {
         return res.status(400).json({ success: false, message: "Invalid label" });
@@ -153,8 +152,8 @@ app.get("/check-user", async (req, res) => {
 
     try {
         const [rows] = await db.query(
-            `SELECT * FROM public WHERE ${label} = ?`,
-            [inputValue]
+            `SELECT * FROM public WHERE LOWER(${label}) LIKE LOWER(?)`,
+            [`%${inputValue}%`]
         );
 
         if (rows.length > 0) {
@@ -165,6 +164,22 @@ app.get("/check-user", async (req, res) => {
     } catch (err) {
         console.error("DB Error:", err);
         res.status(500).json({ error: "Database Error" });
+    }
+});
+
+// Volunteer Registration
+app.post("/volunteers", async (req, res) => {
+    const { id, disasterid, role } = req.body;
+
+    try {
+        await db.query(
+            "INSERT INTO volunteer (userid, disasterid, role) VALUES (?, ?, ?)",
+            [id, disasterid, role]
+        );
+        res.json({ success: true, message: "Volunteer Registered Successfully" });
+    } catch (err) {
+        console.error("DB Error:", err);
+        res.status(500).json({ success: false });
     }
 });
 

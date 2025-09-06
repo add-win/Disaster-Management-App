@@ -10,8 +10,8 @@ import StatusUpdates from './components/Status.jsx';
 import List from './components/list.jsx';
 import UserRegistrations from './components/User.jsx';
 import CheckUser from './components/CheckUser.jsx';
-
 import Volunteers from './components/Volunter.jsx';
+
 import Victims from './components/Victim.jsx';
 import ReliefCamp from './components/Relief.jsx';
 import ResourceAllocation from './components/Resource.jsx';
@@ -33,8 +33,8 @@ function App() {
         <Route path='/list-disasters' element={<List />} />
         <Route path='/user-registrations' element={<UserRegistrations />} />
         <Route path='/check-user' element={<CheckUser />} />
-        
-        <Route path='/volunteer-registrations' element={<Volunteers />} />
+        <Route path='/volunteer' element={<Volunteers />} />
+
         <Route path='/victim-support' element={<Victims />} />
         <Route path='/relief-camp' element={<ReliefCamp />} />
         <Route path='/resource-allocation' element={<ResourceAllocation />} />
