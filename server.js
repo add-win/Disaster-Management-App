@@ -307,6 +307,43 @@ app.post("/new-camp", async (req, res) => {
   }
 });
 
+// List of Relief Camps
+app.get("/reliefcamps", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT * FROM reliefcamp where rstatus='Active' ORDER BY rnumber ASC");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
+  }
+});
+
+// Check Relief Camp Details API
+app.get("/check-relief", async (req, res) => {
+  const { label, inputValue } = req.query;
+
+  const allowedLabels = ["rnumber", "rname", "rlocation", "rpan", "rward", "rph"];
+  if (!allowedLabels.includes(label)) {
+    return res.status(400).json({ success: false, message: "Invalid label" });
+  }
+
+  try {
+    const [rows] = await db.query(
+      `SELECT * FROM reliefcamp WHERE (${label}) LIKE (?) ORDER BY rnumber ASC`,
+      [`%${inputValue}%`]
+    );
+
+    if (rows.length > 0) {
+      res.json({ success: true, users: rows });
+    } else {
+      res.json({ success: false, message: "User Not Found" });
+    }
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
+});
+
 app.listen(5000, () => {
   console.log("Server running on port 5000");
 });

@@ -386,7 +386,7 @@ textarea {
 .user-details {
   margin: 2rem auto;
   max-width: 95%;
-  overflow-x: auto; /* makes table scrollable on small screens */
+  overflow-x: auto;
 }
 
 .user-details h2 {
@@ -430,7 +430,7 @@ textarea {
 }
 
 .user-details tbody tr:hover td {
-  background: #eef6ff; /* subtle highlight on hover */
+  background: #eef6ff;
 }
 
 .user-details tr:last-child td {
@@ -446,7 +446,7 @@ textarea {
 
 .camp-img {
   width: 100%;
-  height: 150px;
+  height: 300px;
   object-fit: cover;
   border-radius: 8px;
   margin-bottom: 0.8rem;
