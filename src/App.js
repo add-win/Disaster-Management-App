@@ -19,7 +19,9 @@ import VictimList from './components/LVictim.jsx';
 import VolunteerCount from './components/Count.jsx';
 import ReliefRegistrations from './components/ReliefReg.jsx';
 import ReliefCamp from './components/Relief.jsx';
+import ReliefStatusUpdates from './components/RStatus.jsx';
 import ReliefUserRegistrations from './components/Ruserreg.jsx';
+import CampPublicList from './components/LCamp.jsx';
 
 import ResourceAllocation from './components/Resource.jsx';
 import SafetyTips from './components/Safety.jsx';
@@ -49,7 +51,9 @@ function App() {
         <Route path='/volunteer-count' element={<VolunteerCount />} />
         <Route path='/relief-reg' element={<ReliefRegistrations/>}/>
         <Route path='/relief-camp' element={<ReliefCamp />} />
+        <Route path='/relief-status' element={<ReliefStatusUpdates />} />
         <Route path='/relief-user-reg' element={<ReliefUserRegistrations />} />
+        <Route path='/camp-public-list' element={<CampPublicList />} />
         
         <Route path='/resource-allocation' element={<ResourceAllocation />} />
         <Route path='/safety-tips' element={<SafetyTips />} />

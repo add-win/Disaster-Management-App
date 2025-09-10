@@ -105,9 +105,9 @@ const ReliefCamp = () => {
                 <th>Ward Number</th>
                 <th>Contact Number</th>
                 <th>Can Accommodate</th>
-                <th>Number of Rooms</th>
-                <th>Number of Washrooms</th>
-                <th>Number of Kitchens</th>
+                <th>Rooms</th>
+                <th>Washrooms</th>
+                <th>Kitchens</th>
               </tr>
             </thead>
             <tbody>
@@ -141,6 +141,9 @@ const ReliefCamp = () => {
             <p><strong>👥 Ward Number:</strong> {camp.rward}</p>
             <p><strong>📞 Contact:</strong> {camp.rph}</p>
             <p><strong>👩‍👧‍👦 Can Accommodate:</strong> {camp.rpeople + " Peoples."}</p>
+            <p><strong>👨 Men:</strong> {camp.men_count || 0}</p>
+            <p><strong>👩 Women:</strong> {camp.women_count || 0}</p>
+            <p><strong>👥 Total People:</strong> {(camp.men_count || 0) + (camp.women_count || 0)}</p>
             <p><strong>🛏 Number of Rooms:</strong> {camp.rroom}</p>
             <p><strong>🚻 Number of Washrooms:</strong> {camp.rwash}</p>
             <p><strong>🍽 Number of Kitchens:</strong> {camp.rkit}</p>

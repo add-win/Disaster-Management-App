@@ -315,36 +315,63 @@ app.post("/new-camp", async (req, res) => {
   }
 });
 
-// List of Relief Camps
+// List of Relief Camps with men/women count
 app.get("/reliefcamps", async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM reliefcamp where rstatus='Active' ORDER BY rnumber ASC");
+    const [rows] = await db.query(`
+      SELECT 
+        r.rnumber,
+        r.rname,
+        r.rlocation,
+        r.rdis,
+        r.rstate,
+        r.rpan,
+        r.rward,
+        r.rph,
+        r.rpeople,
+        r.rroom,
+        r.rwash,
+        r.rkit,
+        COUNT(CASE WHEN p.usergender = 'Male' THEN 1 END) AS men_count,
+        COUNT(CASE WHEN p.usergender = 'Female' THEN 1 END) AS women_count
+      FROM reliefcamp r
+      LEFT JOIN reliefcampusers ru ON r.rnumber = ru.campid
+      LEFT JOIN public p ON ru.userid = p.idpublic
+      WHERE r.rstatus = 'Active'
+      GROUP BY r.rnumber, r.rname, r.rlocation, r.rdis, r.rstate, r.rpan, r.rward, r.rph, r.rpeople, r.rroom, r.rwash, r.rkit
+      ORDER BY r.rnumber ASC
+    `);
+
     res.json(rows);
   } catch (err) {
-    console.error(err);
+    console.error("DB Error:", err);
     res.status(500).json({ error: "Database error" });
   }
 });
 
 // Check Relief Camp Details API
-app.get("/check-relief", async (req, res) => {
-  const { label, inputValue } = req.query;
-
-  const allowedLabels = ["rnumber", "rname", "rlocation", "rpan", "rward", "rph"];
-  if (!allowedLabels.includes(label)) {
-    return res.status(400).json({ success: false, message: "Invalid label" });
-  }
+app.get("/camp-users-list", async (req, res) => {
+  const { campId } = req.query;
 
   try {
     const [rows] = await db.query(
-      `SELECT * FROM reliefcamp WHERE (${label}) LIKE (?) ORDER BY rnumber ASC`,
-      [`%${inputValue}%`]
+      `SELECT rc.rnumber, p.idpublic, p.username, p.usergender, p.userdob, p.usermail, p.userph,p.userhouse,p.userlocation
+       FROM reliefcamp rc
+       INNER JOIN reliefcampusers rcu ON rc.rnumber = rcu.campid
+       INNER JOIN public p ON rcu.userid = p.idpublic
+       WHERE rc.rnumber = ?
+       ORDER BY p.username ASC`,
+      [campId]
     );
 
     if (rows.length > 0) {
-      res.json({ success: true, users: rows });
+      res.json({ 
+        success: true, 
+        camp: { id: rows[0].rnumber}, 
+        residents: rows 
+      });
     } else {
-      res.json({ success: false, message: "User Not Found" });
+      res.json({ success: false, message: "No residents found in this camp" });
     }
   } catch (err) {
     console.error("DB Error:", err);
@@ -362,6 +389,54 @@ app.post("/new-user-relief", async (req, res) => {
       [id, rnumber, status]
     );
     res.json({ success: true, userId: result.insertId });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
+});
+
+// Relief Camp Status Update API
+app.post("/status-relief", async (req, res) => {
+  const { rcId, rcstatus } = req.body;
+
+  try {
+    const [result] = await db.query(
+      `UPDATE reliefcamp SET rstatus = ? WHERE rnumber = ?`,
+      [rcstatus, rcId]
+    );
+
+    if (result.affectedRows > 0) {
+      res.json({ success: true });
+    } else {
+      res.status(404).json({ success: false, message: "Relief Camp Not Found" });
+    }
+  } catch (err) {
+    console.error("Error Updating Status:", err);
+    res.status(500).json({ success: false, message: "Database Error" });
+  }
+}); 
+
+// List of Residents in Each Camp
+app.get("/camp-users/:campId", async (req, res) => {
+  const { campId } = req.params;
+
+  try {
+    const [rows] = await db.query(
+      `SELECT rc.rnumber, rc.rname, rc.rlocation, 
+              p.idpublic, p.pname, p.gender, p.age, p.phone, p.address
+       FROM reliefcamp rc
+       INNER JOIN reliefcampusers rcu ON rc.rnumber = rcu.campid
+       INNER JOIN public p ON rcu.userid = p.idpublic
+       WHERE rc.rnumber = ?
+       ORDER BY p.pname ASC`,
+      [campId]
+    );
+
+    if (rows.length > 0) {
+      res.json({ success: true, camp: rows[0].rname, users: rows });
+    } else {
+      res.json({ success: false, message: "No users found in this camp" });
+    }
   } catch (err) {
     console.error("DB Error:", err);
     res.status(500).json({ error: "Database Error" });

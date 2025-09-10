@@ -2,13 +2,12 @@ import { useState } from 'react';
 import '../App.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-const StatusUpdates = () => {
+const ReliefStatusUpdates = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        reportId: '',
-        status: '',
-        deathCount:''
+        rcId: '',
+        rcstatus: ''
     });
 
     const handleChange = (e) => {
@@ -17,16 +16,15 @@ const StatusUpdates = () => {
 
     const handleReset = () => {
         setFormData({
-            reportId: '',
-            status: '',
-            deathCount:''
+            rcId: '',
+            rcstatus: ''
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:5000/status-disaster", {
+            const response = await fetch("http://localhost:5000/status-relief", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData),
@@ -35,7 +33,7 @@ const StatusUpdates = () => {
             const data = await response.json();
 
             if (response.ok) {
-                alert(`Disaster Status Updated Successfully!`);
+                alert(`Relief Camp Status Updated Successfully!`);
                 handleReset();
                 navigate('/admin-home')
             } else {
@@ -57,30 +55,24 @@ const StatusUpdates = () => {
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
                 </div>
-                <h1>Update Disaster Status</h1>
-                <p>Please provide the update of the disaster.</p>
+                <h1>Update Relief Camp Status</h1>
+                <p>Please provide the current Status of the relief camp.</p>
             </header>
 
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label>Report ID:</label>
-                    <input type="number" name="reportId" required value={formData.reportId} onChange={handleChange} />
+                    <label>Relief Camp ID:</label>
+                    <input type="number" name="rcId" required value={formData.rcId} onChange={handleChange} placeholder='Enter Relief Camp ID'/>
                 </div>
 
                 <div className="form-group">
                     <label>Status:</label>
-                    <select name="status" required value={formData.status} onChange={handleChange}>
+                    <select name="rcstatus" required value={formData.rcstatus} onChange={handleChange}>
                         <option value="">--Select a status--</option>
-                        <option value="Active">Active</option>
-                        <option value="Progress">Rescue In Progress</option>
-                        <option value="Completed">Rescue Completed</option>
-                        <option value="Inactive">Disaster Inactive</option>
+                        <option value="Active">Open</option>
+                        <option value="Inactive">Closed</option>
+                        <option value="Maintenance">Under Maintenance</option>
                     </select>
-                </div>
-
-                <div className="form-group">
-                    <label>Death Count:</label>
-                    <input type="number" name="deathCount" required value={formData.deathCount} onChange={handleChange} />
                 </div>
 
                 <div className="form-group">
@@ -101,4 +93,4 @@ const StatusUpdates = () => {
     );
 };
 
-export default StatusUpdates;
+export default ReliefStatusUpdates;

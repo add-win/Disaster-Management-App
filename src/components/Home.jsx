@@ -87,8 +87,14 @@ export const AdminHome = () => {
         <Link to="/relief-camp">
           <ActionCard title="Relief Camp Details" icon="🧰" />
         </Link>
+        <Link to="/relief-status">
+          <ActionCard title="Camp Status Update" icon="🔄" />
+        </Link>
         <Link to="/relief-user-reg">
           <ActionCard title="Camp Victim Reg." icon="🏕️" />
+        </Link>
+        <Link to="/camp-public-list">
+          <ActionCard title="Resident List" icon="📋" />
         </Link>
 
         <Link to="/resource-allocation">
