@@ -91,9 +91,10 @@ const Victimu = () => {
                         <option value="Rescued">Rescued</option>
                         <option value="Relief-Camp">Relief-Camp</option>
                         <option value="Deceased">Deceased</option>
-                        <option value="Hospitalized">Hospitalized</option>
-                        <option value="Safe">Safe</option>
                         <option value="Unharmed">Unharmed</option>
+                        <option value="Safe">Safe</option>
+                        <option value="Injured">Injured</option>
+                        <option value="Hospitalized">Hospitalized</option>
                         <option value="Not-Available">Other</option>
                     </select>
                 </div>

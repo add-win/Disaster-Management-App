@@ -245,6 +245,14 @@ app.post("/update-victims", async (req, res) => {
       "UPDATE victim SET status = ? WHERE userid = ?",
       [status, id]
     );
+
+    if (["Safe", "Injured", "Hospitalized"].includes(status)) {
+      await db.query(
+        "UPDATE reliefcampusers SET userstatus = ? WHERE userid = ?",
+        [status, id]
+      );
+    }
+    
     res.json({ success: true, message: "Victim Status Updated Successfully" });
   } catch (err) {
     console.error("DB Error:", err);
@@ -338,6 +346,22 @@ app.get("/check-relief", async (req, res) => {
     } else {
       res.json({ success: false, message: "User Not Found" });
     }
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database Error" });
+  }
+});
+
+// New Person Registration API
+app.post("/new-user-relief", async (req, res) => {
+  const { id, rnumber, status } = req.body;
+  try {
+    const [result] = await db.query(
+      `INSERT INTO reliefcampusers(userid, campid, userstatus) 
+             VALUES(?, ?, ?)`,
+      [id, rnumber, status]
+    );
+    res.json({ success: true, userId: result.insertId });
   } catch (err) {
     console.error("DB Error:", err);
     res.status(500).json({ error: "Database Error" });

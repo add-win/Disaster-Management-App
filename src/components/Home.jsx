@@ -49,7 +49,7 @@ export const AdminHome = () => {
           <ActionCard title="Active Disasters" icon="🚨" />
         </Link>
         <Link to="/status-updates">
-          <ActionCard title="Status Update" icon="🔄" />
+          <ActionCard title="Disaster Update" icon="🔄" />
         </Link>
         <Link to="/list-disasters">
           <ActionCard title="List of Disasters" icon="📋" />
@@ -87,7 +87,10 @@ export const AdminHome = () => {
         <Link to="/relief-camp">
           <ActionCard title="Relief Camp Details" icon="🧰" />
         </Link>
-        
+        <Link to="/relief-user-reg">
+          <ActionCard title="Camp Victim Reg." icon="🏕️" />
+        </Link>
+
         <Link to="/resource-allocation">
           <ActionCard title="Resource Allocation" icon="📦" />
         </Link>
