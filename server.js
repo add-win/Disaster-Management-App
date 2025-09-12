@@ -252,7 +252,7 @@ app.post("/update-victims", async (req, res) => {
         [status, id]
       );
     }
-    
+
     res.json({ success: true, message: "Victim Status Updated Successfully" });
   } catch (err) {
     console.error("DB Error:", err);
@@ -365,10 +365,10 @@ app.get("/camp-users-list", async (req, res) => {
     );
 
     if (rows.length > 0) {
-      res.json({ 
-        success: true, 
-        camp: { id: rows[0].rnumber}, 
-        residents: rows 
+      res.json({
+        success: true,
+        camp: { id: rows[0].rnumber },
+        residents: rows
       });
     } else {
       res.json({ success: false, message: "No residents found in this camp" });
@@ -405,6 +405,10 @@ app.post("/status-relief", async (req, res) => {
       [rcstatus, rcId]
     );
 
+    await db.query(
+      `DELETE v FROM resources v JOIN reliefcamp d ON v.cid = d.rnumber WHERE d.rstatus = 'Inactive';`
+    );
+
     if (result.affectedRows > 0) {
       res.json({ success: true });
     } else {
@@ -414,7 +418,7 @@ app.post("/status-relief", async (req, res) => {
     console.error("Error Updating Status:", err);
     res.status(500).json({ success: false, message: "Database Error" });
   }
-}); 
+});
 
 // List of Residents in Each Camp
 app.get("/camp-users/:campId", async (req, res) => {
@@ -440,6 +444,59 @@ app.get("/camp-users/:campId", async (req, res) => {
   } catch (err) {
     console.error("DB Error:", err);
     res.status(500).json({ error: "Database Error" });
+  }
+});
+
+// Resource Donation API
+app.post("/donate-resource", async (req, res) => {
+  const { campName, commodity, donatingPersonName, donatingQuantity, deliveryDate, phoneNumber } = req.body;
+  try {
+    const [result] = await db.query(
+      "INSERT INTO resources (cid, object, amount, person, phperson, dedate) VALUES (?, ?, ?, ?, ?, ?)",
+      [campName, commodity, donatingQuantity, donatingPersonName, phoneNumber, deliveryDate]
+    );
+    res.json({ success: true });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ success: false });
+  }
+});
+
+// List of Resources in Each Camp
+app.get("/list-resources", async (req, res) => {
+  try {
+    
+    const commodities = [
+      "Rice", "Wheat", "Dal", "Cabbage", "Carrot", "Potato", "Onion", "Tomato",
+      "Milk", "Eggs", "Bread", "Water Bottles", "Blankets", "Clothes", "Soap",
+      "Sanitary Pads", "Toothpaste"
+    ];
+
+    const [campsData] = await db.query(`SELECT rnumber, rname FROM reliefcamp ORDER BY rnumber ASC`);
+    const camps = campsData.map(c => c.rname);
+
+    const [rows] = await db.query(`
+      SELECT r.object, r.amount, c.rname AS camp
+      FROM resources r
+      INNER JOIN reliefcamp c ON r.cid = c.rnumber
+      ORDER BY c.rnumber ASC
+    `);
+
+    const stockMap = {};
+    rows.forEach(row => {
+      if (!stockMap[row.object]) stockMap[row.object] = {};
+      stockMap[row.object][row.camp] = row.amount;
+    });
+
+    const resources = commodities.map(item => {
+      const stock = camps.map(camp => stockMap[item]?.[camp] || 0);
+      return { item, stock };
+    });
+
+    res.json({ camps, resources });
+  } catch (err) {
+    console.error("DB Error:", err);
+    res.status(500).json({ error: "Database error" });
   }
 });
 

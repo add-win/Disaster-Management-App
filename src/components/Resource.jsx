@@ -1,27 +1,34 @@
-import React from 'react';
-import '../App.css';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "../App.css";
 
-const camps = ["St. Thomas School", "Govt College", "Community Hall"];
-
-const resources = [
-  { item: "Water Bottles", stock: [120, 200, 80] },
-  { item: "Food Packets", stock: [300, 450, 220] },
-  { item: "Medicines", stock: [50, 60, 30] },
-  { item: "Blankets", stock: [100, 150, 70] },
-  { item: "Sanitary Kits", stock: [80, 90, 40] },
-];
-
-const ResourceAllocation = () => {
+const ResourceTable = () => {
+  const [data, setData] = useState({ camps: [], resources: [] });
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/admin-login');
+    navigate("/admin-login");
   };
 
   const handleBack = () => {
-    navigate('/admin-home');
+    navigate("/admin-home");
   };
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const response = await fetch("http://localhost:5000/list-resources");
+        const json = await response.json();
+        setData(json);
+      } catch (error) {
+        console.error("Error fetching resources:", error);
+      }
+    };
+
+    fetchResources();
+    const interval = setInterval(fetchResources, 10000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div>
@@ -33,30 +40,35 @@ const ResourceAllocation = () => {
           <button onClick={handleLogout} className="logout-btn">Logout</button>
         </div>
         <h1>Resource Allocation</h1>
-        <p>View current resource stock across all relief camps.</p>
+        <p>Showing available commodities across all relief camps.</p>
       </header>
 
-      <div className="resource-table-container">
-        <table className="resource-table">
-          <thead>
-            <tr>
-              <th>Item</th>
-              {camps.map((camp, index) => (
-                <th key={index}>{camp}</th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {resources.map((res, idx) => (
-              <tr key={idx}>
-                <td>{res.item}</td>
-                {res.stock.map((qty, i) => (
-                  <td key={i}>{qty}</td>
+      <div className="live-updates-page">
+        {data.resources.length > 0 ? (
+          <table className="disaster-table">
+            <thead>
+              <tr>
+                <th>Commodity</th>
+                {data.camps.map((camp, i) => (
+                  <th key={i}>{camp}</th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {data.resources.map((row, i) => (
+                <tr key={i}>
+                  <td>{row.item}</td>
+                  {row.stock.map((val, j) => (
+                    <td key={j}>{val}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+
+          </table>
+        ) : (
+          <p>No resources available.</p>
+        )}
       </div>
 
       <footer>
@@ -66,4 +78,4 @@ const ResourceAllocation = () => {
   );
 };
 
-export default ResourceAllocation;
+export default ResourceTable;

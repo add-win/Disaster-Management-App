@@ -96,6 +96,9 @@ export const AdminHome = () => {
         <Link to="/camp-public-list">
           <ActionCard title="Resident List" icon="📋" />
         </Link>
+        <Link to="/resource-donation">
+          <ActionCard title="Resource Donation" icon="🎁" />
+        </Link>
 
         <Link to="/resource-allocation">
           <ActionCard title="Resource Allocation" icon="📦" />

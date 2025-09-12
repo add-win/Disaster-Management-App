@@ -22,6 +22,7 @@ import ReliefCamp from './components/Relief.jsx';
 import ReliefStatusUpdates from './components/RStatus.jsx';
 import ReliefUserRegistrations from './components/Ruserreg.jsx';
 import CampPublicList from './components/LCamp.jsx';
+import ItemDonate from './components/Donate.jsx';
 
 import ResourceAllocation from './components/Resource.jsx';
 import SafetyTips from './components/Safety.jsx';
@@ -54,6 +55,7 @@ function App() {
         <Route path='/relief-status' element={<ReliefStatusUpdates />} />
         <Route path='/relief-user-reg' element={<ReliefUserRegistrations />} />
         <Route path='/camp-public-list' element={<CampPublicList />} />
+        <Route path='/resource-donation' element={<ItemDonate />} />
         
         <Route path='/resource-allocation' element={<ResourceAllocation />} />
         <Route path='/safety-tips' element={<SafetyTips />} />
