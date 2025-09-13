@@ -89,12 +89,12 @@ const ItemDonate = () => {
                         <option value="">--Select an Object--</option>
                         <option value="Rice">Rice</option>
                         <option value="Wheat">Wheat</option>
-                        <option value="Dal">Dal (Lentils)</option>
-                        <option value="Cabbage">Vegetable - Cabbage</option>
-                        <option value="Carrot">Vegetable - Carrot</option>
-                        <option value="Potato">Vegetable - Potato</option>
-                        <option value="Onion">Vegetable - Onion</option>
-                        <option value="Tomato">Vegetable - Tomato</option>
+                        <option value="Dal (Lentils)">Dal (Lentils)</option>
+                        <option value="Vegetable - Cabbage">Vegetable - Cabbage</option>
+                        <option value="Vegetable - Carrot">Vegetable - Carrot</option>
+                        <option value="Vegetable - Potato">Vegetable - Potato</option>
+                        <option value="Vegetable - Onion">Vegetable - Onion</option>
+                        <option value="Vegetable - Tomato">Vegetable - Tomato</option>
                         <option value="Milk">Milk</option>
                         <option value="Eggs">Eggs</option>
                         <option value="Bread">Bread</option>
@@ -109,7 +109,7 @@ const ItemDonate = () => {
 
                 <div className="form-group">
                     <label>Donating Quantity/Number:</label>
-                    <input type="text" name="donatingQuantity" placeholder="e.g. 100 kg / 10 Nos." required value={formData.donatingQuantity} onChange={handleChange} />
+                    <input type="number" name="donatingQuantity" placeholder="e.g. 100" required value={formData.donatingQuantity} onChange={handleChange} />
                 </div>
 
                 <div className='form-group'>

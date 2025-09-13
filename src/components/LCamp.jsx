@@ -5,10 +5,10 @@ import '../App.css';
 const CampPublicList = () => {
   const [residents, setResidents] = useState([]);
   const [formData, setFormData] = useState({ campId: '' });
+  const [searched, setSearched] = useState(false);
   const navigate = useNavigate();
 
   const handleLogout = () => navigate('/admin-login');
-  const handleBack = () => navigate('/admin-home');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -18,6 +18,7 @@ const CampPublicList = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSearched(true);
     try {
       const response = await fetch(
         `http://localhost:5000/camp-users-list?campId=${formData.campId}`
@@ -52,9 +53,6 @@ const CampPublicList = () => {
   return (
     <div>
       <header className="header-container">
-        <div className="back-wrapper">
-          <button onClick={handleBack} className="back-btn">Back</button>
-        </div>
         <div className="logout-wrapper">
           <button onClick={handleLogout} className="logout-btn">Logout</button>
         </div>
@@ -62,7 +60,6 @@ const CampPublicList = () => {
         <p>Search and display residents in a particular relief camp.</p>
       </header>
 
-      {/* Search form */}
       <form className="report-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Enter Camp ID:</label>
@@ -119,7 +116,7 @@ const CampPublicList = () => {
             </tbody>
           </table>
         ) : (
-          <p>No residents found for this camp.</p>
+          searched && <p>No Residents found for this camp.</p>
         )}
       </div>
 

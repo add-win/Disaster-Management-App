@@ -30,6 +30,7 @@ const PublicLogin = () => {
       const data = await response.json();
 
       if (data.success) {
+        localStorage.setItem('publicIdentifier', username);
         navigate("/public-home");
       } else {
         setError(data.message);
@@ -66,6 +67,15 @@ const PublicLogin = () => {
               <button type="submit" className="login-button blue">Login</button>
               <button type="reset" onClick={handleReset} className='login-button red'>Reset</button>
             </div>
+          </div>
+          <div style={{ textAlign: "center", marginTop: "1rem", textDecoration: "none" }}>
+            <Link to="/new-user-registrations" className="login-link">
+              New User Registration
+            </Link>
+            <span style={{ margin: "0 10px" }}>|</span>
+            <Link to="/forgot-password" className="login-link">
+              Forgot Password?
+            </Link>
           </div>
         </form>
       </div>

@@ -26,8 +26,21 @@ const List = () => {
     };
 
     fetchUpdates();
-
   }, []);
+
+  const groupedData = updates.reduce((acc, item) => {
+    const key = `${item.did}-${item.dtype}-${item.dlocation}`;
+    if (!acc[key]) {
+      acc[key] = {
+        did: item.did,
+        dtype: item.dtype,
+        dlocation: item.dlocation,
+        rows: [],
+      };
+    }
+    acc[key].rows.push(item);
+    return acc;
+  }, {});
 
   return (
     <div>
@@ -44,32 +57,33 @@ const List = () => {
 
       <div className="live-updates-page">
         {updates.length > 0 ? (
-          <table className="disaster-table">
-            <thead>
-              <tr>
-                <th>Disaster ID</th>
-                <th>Type</th>
-                <th>Location</th>
-                <th>Role</th>
-                <th>Male</th>
-                <th>Female</th>
-                <th>Total</th>
-              </tr>
-            </thead>
-            <tbody>
-              {updates.map((u, index) => (
-                <tr key={index}>
-                  <td>{u.did}</td>
-                  <td>{u.dtype}</td>
-                  <td>{u.dlocation}</td>
-                  <td>{u.role}</td>
-                  <td>{u.male_count}</td>
-                  <td>{u.female_count}</td>
-                  <td>{u.total}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          Object.values(groupedData).map((group, i) => (
+            <div key={i} className="disaster-section">
+              <h2>
+                Disaster ID: {group.did} - {group.dtype} ({group.dlocation})
+              </h2>
+              <table className="disaster-table">
+                <thead>
+                  <tr>
+                    <th>Role</th>
+                    <th>Male</th>
+                    <th>Female</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {group.rows.map((u, idx) => (
+                    <tr key={idx}>
+                      <td>{u.role}</td>
+                      <td>{u.male_count}</td>
+                      <td>{u.female_count}</td>
+                      <td>{u.total}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
         ) : (
           <p>No volunteer count data yet.</p>
         )}

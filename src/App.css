@@ -62,7 +62,8 @@ textarea {
 }
 
 .logout-btn,
-.back-btn,.home-btn {
+.back-btn,
+.home-btn {
   background-color: #e53935;
   color: white;
   border: none;
@@ -82,7 +83,7 @@ textarea {
   background-color: #333333;
 }
 
-.home-btn{
+.home-btn {
   background-color: #43a047;
   color: white;
 }
@@ -187,7 +188,7 @@ textarea {
 
 .action-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
   padding-top: 1rem;
   padding-left: 2rem;
@@ -203,10 +204,32 @@ textarea {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
   cursor: pointer;
+  width: 220px;
+  height: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-.action-card:hover {
-  transform: translateY(-5px);
+.action-card-icon {
+  font-size: 3.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-card h3 {
+  margin-top: 0.5rem;
+  font-size: 1.3rem;
+  color: #222;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /*Landing Page*/
@@ -452,6 +475,74 @@ textarea {
   margin-bottom: 0.8rem;
 }
 
+/*Resource Each Camp*/
+.table-wrapper {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.camp-title {
+  text-align: center;
+  margin-bottom: 2px;
+  margin-top: 2px;
+  font-size: 25px;
+  color: #2c3e50;
+  font-weight: 700;
+}
+
+.table-split {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.fancy-table {
+  width: 45%;
+  border-collapse: collapse;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 15px;
+  min-width: 280px;
+}
+
+.fancy-table thead th {
+  background: #2c3e50;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.fancy-table tbody td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+.fancy-table tbody tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.fancy-table tbody tr:hover {
+  background: #eaf4ff;
+  transition: 0.2s ease-in-out;
+}
+
+.stock-yes {
+  color: green;
+  font-weight: bold;
+}
+
+.stock-no {
+  color: red;
+  font-weight: bold;
+}
+
+
 /*Safety Page*/
 .tips-grid {
   display: grid;
@@ -483,4 +574,189 @@ textarea {
 .contact-card p {
   margin-top: 0.4rem;
   margin-bottom: 0.75rem;
+}
+
+/*Alert Section*/
+.edit-btn {
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #0077cc;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.2s ease-in-out;
+}
+
+.edit-btn:hover {
+  background-color: #005fa3;
+}
+
+.edit-input {
+  padding: 5px 8px;
+  margin-right: 8px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/*Forgot Password Page*/
+.login-link {
+  text-decoration: none;
+  color: #007bff;
+  font-size: large;
+  font-weight: 400;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/*Profile Page*/
+.profile-view-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 0 0;
+}
+
+.profile-btn {
+  background: #fffb09;
+  color: #3a17ff;
+  border: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s, color 0.2s, transform 0.2s ease-in;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.profile-btn:hover {
+  background: #0056b3;
+  color: #ffffff;
+  transform: translateY(-2px) scale(1.05);
+}
+
+.newuserprofile {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  background: #f9f9f9;
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.newuserprofile .profile-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  width: 700px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.newuserprofile .success-msg {
+  color: #0f9d58;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.newuserprofile .error-msg {
+  color: #d93025;
+  font-weight: 500;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.newuserprofile .profile-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px 25px;
+}
+
+.newuserprofile .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.newuserprofile .form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+.newuserprofile .form-group input,
+.newuserprofile .form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.newuserprofile .form-group input:focus,
+.newuserprofile .form-group select:focus {
+  border-color: #007bff;
+}
+
+.newuserprofile .form-group input[disabled],
+.newuserprofile .form-group select[disabled] {
+  background: #f0f0f0;
+  cursor: not-allowed;
+}
+
+.newuserprofile .form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.newuserprofile .btn {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.newuserprofile .btn-edit {
+  background: #007bff;
+  color: white;
+}
+
+.newuserprofile .btn-edit:hover {
+  background: #0056b3;
+  transform: scale(1.05);
+}
+
+.newuserprofile .btn-save {
+  background: #28a745;
+  color: white;
+}
+
+.newuserprofile .btn-save:hover {
+  background: #1e7e34;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .newuserprofile .profile-card {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .newuserprofile .profile-form {
+    grid-template-columns: 1fr;
+  }
 }
