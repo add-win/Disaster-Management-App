@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../App.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ReliefStatusUpdates = () => {
     const navigate = useNavigate();
@@ -19,6 +19,9 @@ const ReliefStatusUpdates = () => {
             rcId: '',
             rcstatus: ''
         });
+    };
+    const handleBack = () => {
+        navigate(-1);
     };
 
     const handleSubmit = async (e) => {
@@ -46,7 +49,7 @@ const ReliefStatusUpdates = () => {
     };
 
     const handleLogout = () => {
-        navigate('/admin-login');
+        navigate('/');
     };
 
     return (
@@ -62,7 +65,7 @@ const ReliefStatusUpdates = () => {
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Relief Camp ID:</label>
-                    <input type="number" name="rcId" required value={formData.rcId} onChange={handleChange} placeholder='Enter Relief Camp ID'/>
+                    <input type="number" name="rcId" required value={formData.rcId} onChange={handleChange} placeholder='Enter Relief Camp ID' />
                 </div>
 
                 <div className="form-group">
@@ -77,9 +80,13 @@ const ReliefStatusUpdates = () => {
 
                 <div className="form-group">
                     <div className='form-buttons'>
-                        <Link to="/admin-home">
-                            <button type='button' className='login-button black'>Back</button>
-                        </Link>
+                        <button
+                            type="button"
+                            className="login-button black"
+                            onClick={handleBack}
+                        >
+                            Back
+                        </button>
                         <button type="submit" className='login-button green'>Submit</button>
                         <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
                     </div>

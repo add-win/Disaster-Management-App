@@ -55,7 +55,7 @@ const ProfileView = () => {
       if (data.success) {
         setMessage('✅ Profile updated successfully!');
         setEditMode(false);
-        setOriginalProfile(profile); // Update original data after save
+        setOriginalProfile(profile);
       } else {
         setError(data.message || 'Update failed.');
       }
@@ -65,7 +65,7 @@ const ProfileView = () => {
   };
 
   const handleCancel = () => {
-    setProfile(originalProfile); // Restore original data
+    setProfile(originalProfile);
     setEditMode(false);
     setMessage('');
     setError('');
@@ -78,7 +78,7 @@ const ProfileView = () => {
   };
 
   const handleBack = () => {
-    navigate('/public-home');
+    navigate(-1);
   };
 
   return (

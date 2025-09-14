@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import '../App.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ReliefCamp = () => {
   const [camps, setCamps] = useState([]);
@@ -19,7 +19,9 @@ const ReliefCamp = () => {
   });
 
   const [users, setUsers] = useState([]);
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -50,7 +52,7 @@ const ReliefCamp = () => {
   };
 
   const handleLogout = () => {
-    navigate('/admin-login');
+    navigate('/');
   };
 
   return (
@@ -83,9 +85,13 @@ const ReliefCamp = () => {
 
         <div className="form-group">
           <div className='form-buttons'>
-            <Link to="/admin-home">
-              <button type='button' className='login-button black'>Back</button>
-            </Link>
+            <button
+              type="button"
+              className="login-button black"
+              onClick={handleBack}
+            >
+              Back
+            </button>
             <button type="submit" className='login-button green'>Check</button>
             <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
           </div>
@@ -130,10 +136,10 @@ const ReliefCamp = () => {
         </div>
       )}
 
-      <section className="action-grid">
+      <section className="camp-action-card-grid">
         {camps.map((camp) => (
-          <div className="action-card" key={camp.rnumber}>
-            <img src="logo.png" alt={camp.rname} className="camp-img" />
+          <div className="camp-action-card" key={camp.rnumber}>
+            <img src="logo.png" alt={camp.rname} className="camp-action-card-img" />
             <h3>{camp.rname}</h3>
             <p><strong>🏕 Camp Number:</strong> {camp.rnumber}</p>
             <p><strong>📍 Location:</strong> {camp.rlocation + " " + camp.rdis + " " + camp.rstate}</p>

@@ -365,7 +365,7 @@ textarea {
 }
 
 .disaster-table {
-  width: 120%;
+  width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
   background: white;
@@ -758,5 +758,66 @@ textarea {
 
   .newuserprofile .profile-form {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Relief Camp Tables*/
+.camp-action-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 30px;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.camp-action-card {
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.camp-action-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+.camp-action-card-img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+.camp-action-card h3 {
+  margin: 10px 0;
+  font-size: 1.3rem;
+  color: #1976d2;
+  font-weight: bold;
+}
+
+.camp-action-card p {
+  margin: 6px 0;
+  font-size: 0.95rem;
+  color: #444;
+  text-align: left;
+}
+
+.camp-action-card strong {
+  color: #222;
+}
+
+@media (max-width: 600px) {
+  .camp-action-card {
+    padding: 15px;
+  }
+  .camp-action-card h3 {
+    font-size: 1.1rem;
+  }
+  .camp-action-card p {
+    font-size: 0.9rem;
   }
 }

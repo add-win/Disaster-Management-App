@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../App.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ReliefRegistrations = () => {
     const navigate = useNavigate();
@@ -64,9 +64,11 @@ const ReliefRegistrations = () => {
     };
 
     const handleLogout = () => {
-        navigate('/admin-login');
+        navigate('/');
     };
-
+    const handleBack = () => {
+        navigate(-1);
+    };
     return (
         <div>
             <header className="header-container">
@@ -167,9 +169,13 @@ const ReliefRegistrations = () => {
 
                 <div className="form-group">
                     <div className='form-buttons'>
-                        <Link to="/admin-home">
-                            <button type='button' className='login-button black'>Back</button>
-                        </Link>
+                        <button
+                            type="button"
+                            className="login-button black"
+                            onClick={handleBack}
+                        >
+                            Back
+                        </button>
                         <button type="submit" className='login-button green'>Submit</button>
                         <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
                     </div>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../App.css";
 
 const ResourceTable = () => {
@@ -11,9 +11,11 @@ const ResourceTable = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate("/admin-login");
+    navigate("/");
   };
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   const fetchResources = async (id) => {
     try {
       const response = await fetch(`http://localhost:5000/list-resources/${id}`);
@@ -72,9 +74,13 @@ const ResourceTable = () => {
           </div>
           <div className="form-group">
             <div className="form-buttons">
-              <Link to="/admin-home">
-                <button type="button" className="login-button black">Back</button>
-              </Link>
+              <button
+                type="button"
+                className="login-button black"
+                onClick={handleBack}
+              >
+                Back
+              </button>
               <button type="submit" className="login-button green">Check</button>
               <button
                 type="reset"
@@ -87,7 +93,7 @@ const ResourceTable = () => {
           </div>
         </form>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        {error && <p style={{ color: "red", textAlign: 'center' }}>{error}</p>}
 
         {resources.length > 0 ? (
           <div className="table-wrapper">

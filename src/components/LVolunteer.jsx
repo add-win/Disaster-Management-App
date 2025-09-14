@@ -7,11 +7,11 @@ const VolunteerList = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/admin-login');
+    navigate('/');
   };
 
   const handleBack = () => {
-    navigate('/admin-home');
+    navigate(-1);
   };
 
   useEffect(() => {
@@ -44,6 +44,19 @@ const VolunteerList = () => {
     return age;
   };
 
+  const groupByDisaster = (volunteers) => {
+    return volunteers.reduce((groups, v) => {
+      const key = `${v.disaster_type+" at "+v.disaster_name} (ID: ${v.did})`;
+      if (!groups[key]) {
+        groups[key] = [];
+      }
+      groups[key].push(v);
+      return groups;
+    }, {});
+  };
+
+  const groupedVolunteers = groupByDisaster(volunteers);
+
   return (
     <div>
       <header className="header-container">
@@ -54,45 +67,46 @@ const VolunteerList = () => {
           <button onClick={handleLogout} className="logout-btn">Logout</button>
         </div>
         <h1>List of Volunteers</h1>
-        <p>Showing all registered volunteers with public details.</p>
+        <p>Grouped by disaster name and ID.</p>
       </header>
 
       <div className="live-updates-page">
-        {volunteers.length > 0 ? (
-          <table className="disaster-table">
-            <thead>
-              <tr>
-                <th>Volunteer ID</th>
-                <th>Volunteer Role</th>
-                <th>Disaster Name</th>
-                <th>Disaster Type</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Location</th>
-                <th>District</th>
-                <th>Age</th>
-                <th>Gender</th>
-              </tr>
-            </thead>
-            <tbody>
-              {volunteers.map((v) => (
-                <tr key={v.idpublic}>
-                  <td>{v.idpublic}</td>
-                  <td>{v.role}</td>
-                  <td>{v.disaster_name}</td>
-                  <td>{v.disaster_type}</td>
-                  <td>{v.username}</td>
-                  <td>{v.usermail}</td>
-                  <td>{v.userph}</td>
-                  <td>{v.userlocation}</td>
-                  <td>{v.userdistrict}</td>
-                  <td>{calculateAge(v.userdob)}</td>
-                  <td>{v.usergender}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {Object.keys(groupedVolunteers).length > 0 ? (
+          Object.entries(groupedVolunteers).map(([disasterKey, vols]) => (
+            <div key={disasterKey} className="disaster-section">
+              <h2>{disasterKey}</h2>
+              <table className="disaster-table">
+                <thead>
+                  <tr>
+                    <th>Volunteer ID</th>
+                    <th>Role</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>District</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {vols.map((v) => (
+                    <tr key={v.idpublic}>
+                      <td>{v.idpublic}</td>
+                      <td>{v.role}</td>
+                      <td>{v.username}</td>
+                      <td>{v.usermail}</td>
+                      <td>{v.userph}</td>
+                      <td>{v.userlocation}</td>
+                      <td>{v.userdistrict}</td>
+                      <td>{calculateAge(v.userdob)}</td>
+                      <td>{v.usergender}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
         ) : (
           <p>No volunteers found.</p>
         )}

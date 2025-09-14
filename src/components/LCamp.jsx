@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import '../App.css';
 
 const CampPublicList = () => {
@@ -8,14 +8,16 @@ const CampPublicList = () => {
   const [searched, setSearched] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogout = () => navigate('/admin-login');
+  const handleLogout = () => navigate('/');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleReset = () => setFormData({ campId: '' });
-
+  const handleBack = () => {
+    navigate(-1);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSearched(true);
@@ -75,16 +77,19 @@ const CampPublicList = () => {
 
         <div className="form-group">
           <div className="form-buttons">
-            <Link to="/admin-home">
-              <button type="button" className="login-button black">Back</button>
-            </Link>
+            <button
+              type="button"
+              className="login-button black"
+              onClick={handleBack}
+            >
+              Back
+            </button>
             <button type="submit" className="login-button green">Check</button>
             <button type="reset" className="login-button red" onClick={handleReset}>Reset</button>
           </div>
         </div>
       </form>
 
-      {/* Residents list */}
       <div className="live-updates-page">
         {residents.length > 0 ? (
           <table className="disaster-table">

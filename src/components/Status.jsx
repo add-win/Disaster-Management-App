@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import '../App.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const StatusUpdates = () => {
     const navigate = useNavigate();
@@ -8,7 +8,7 @@ const StatusUpdates = () => {
     const [formData, setFormData] = useState({
         reportId: '',
         status: '',
-        deathCount:''
+        deathCount: ''
     });
 
     const handleChange = (e) => {
@@ -19,7 +19,7 @@ const StatusUpdates = () => {
         setFormData({
             reportId: '',
             status: '',
-            deathCount:''
+            deathCount: ''
         });
     };
 
@@ -48,7 +48,10 @@ const StatusUpdates = () => {
     };
 
     const handleLogout = () => {
-        navigate('/admin-login');
+        navigate('/');
+    };
+    const handleBack = () => {
+        navigate(-1);
     };
 
     return (
@@ -64,7 +67,7 @@ const StatusUpdates = () => {
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Report ID:</label>
-                    <input type="number" name="reportId" required value={formData.reportId} onChange={handleChange} />
+                    <input type="number" name="reportId" required value={formData.reportId} onChange={handleChange} placeholder='Enter Report ID' />
                 </div>
 
                 <div className="form-group">
@@ -80,14 +83,18 @@ const StatusUpdates = () => {
 
                 <div className="form-group">
                     <label>Death Count:</label>
-                    <input type="number" name="deathCount" required value={formData.deathCount} onChange={handleChange} />
+                    <input type="number" name="deathCount" required value={formData.deathCount} onChange={handleChange} placeholder='Enter Death Count' />
                 </div>
 
                 <div className="form-group">
                     <div className='form-buttons'>
-                        <Link to="/admin-home">
-                            <button type='button' className='login-button black'>Back</button>
-                        </Link>
+                        <button
+                            type="button"
+                            className="login-button black"
+                            onClick={handleBack}
+                        >
+                            Back
+                        </button>
                         <button type="submit" className='login-button green'>Submit</button>
                         <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
                     </div>

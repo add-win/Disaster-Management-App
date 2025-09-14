@@ -14,10 +14,13 @@ export const AdminHome = () => {
   const [alerts, setAlerts] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
   const [editMessage, setEditMessage] = useState("");
-  const [setEditDate] = useState("");
+  // eslint-disable-next-line 
+  const [editDate, setEditDate] = useState("");
 
   const handleLogout = () => navigate('/admin-login');
-  const handleBack = () => navigate('/');
+  const handleBack = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchAlerts = async () => {
@@ -129,8 +132,12 @@ export const AdminHome = () => {
         <Link to='/user-registrations'>
           <ActionCard title="New User Registration" icon="👥" />
         </Link>
+
         <Link to="/volunteer">
           <ActionCard title="Volunteer Registration" icon="🤝" />
+        </Link>
+        <Link to='/volunteer-count'>
+          <ActionCard title="Volunteer Distribution" icon="📊" />
         </Link>
         <Link to="/volunteer-update">
           <ActionCard title="Update Volunteer Role" icon="🆙" />
@@ -141,6 +148,7 @@ export const AdminHome = () => {
         <Link to='/check-user'>
           <ActionCard title="Check User Existence" icon="🔍" />
         </Link>
+
         <Link to="/victim-support">
           <ActionCard title="Victim Registration" icon="🆘" />
         </Link>
@@ -150,9 +158,13 @@ export const AdminHome = () => {
         <Link to='/victim-list'>
           <ActionCard title="Victims of Current Disaster" icon="📋" />
         </Link>
-        <Link to='/volunteer-count'>
-          <ActionCard title="Volunteer Distribution" icon="📊" />
+        <Link to="/relief-user-reg">
+          <ActionCard title="Camp Victim Registration" icon="🏕️" />
         </Link>
+        <Link to="/camp-public-list">
+          <ActionCard title="Relief Camp Residents List" icon="📋" />
+        </Link>
+
         <Link to='/relief-reg'>
           <ActionCard title="Relief Camp Registration" icon="🆕" />
         </Link>
@@ -165,11 +177,12 @@ export const AdminHome = () => {
         <Link to="/relief-camp-update">
           <ActionCard title="Update Relief Camp Details" icon="✏️" />
         </Link>
-        <Link to="/relief-user-reg">
-          <ActionCard title="Camp Victim Registration" icon="🏕️" />
+        <Link to="/resource-allocation">
+          <ActionCard title="Camp Resource Allocation" icon="📦" />
         </Link>
-        <Link to="/camp-public-list">
-          <ActionCard title="Relief Camp Residents List" icon="📋" />
+
+        <Link to="/resource-update">
+          <ActionCard title="Update Resource Availability" icon="📝" />
         </Link>
         <Link to="/resource-donation">
           <ActionCard title="Donate Resources" icon="🎁" />
@@ -179,12 +192,6 @@ export const AdminHome = () => {
         </Link>
         <Link to="/accept-donation">
           <ActionCard title="Accept Donation Offer" icon="🤝" />
-        </Link>
-        <Link to="/resource-update">
-          <ActionCard title="Update Resource Availability" icon="📝" />
-        </Link>
-        <Link to="/resource-allocation">
-          <ActionCard title="Camp Resource Allocation" icon="📦" />
         </Link>
         <Link to="/safety-tips">
           <ActionCard title="Tips for Staying Safe" icon="💡" />
@@ -202,12 +209,14 @@ export const PublicHome = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/');
+    navigate('/public-login');
   };
 
   const [alerts, setAlerts] = useState([]);
 
-  const handleBack = () => navigate('/');
+  const handleBack = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchAlerts = async () => {
@@ -267,12 +276,13 @@ export const PublicHome = () => {
         <Link to="/volunteer">
           <ActionCard title="Volunteer Registration" icon="🤝" />
         </Link>
-        <Link to="/volunteer-update">
-          <ActionCard title="Update Volunteer Role" icon="🆙" />
+        <Link to='/volunteer-count'>
+          <ActionCard title="Volunteer Distribution" icon="📊" />
         </Link>
         <Link to='/volunteer-list'>
           <ActionCard title="List of Active Volunteers" icon="📋" />
         </Link>
+
         <Link to="/victim-support">
           <ActionCard title="Victim Registration" icon="🆘" />
         </Link>
@@ -282,20 +292,21 @@ export const PublicHome = () => {
         <Link to='/victim-list'>
           <ActionCard title="Victims of Current Disaster" icon="📋" />
         </Link>
+        <Link to="/camp-public-list">
+          <ActionCard title="Relief Camp Residents List" icon="📋" />
+        </Link>
         <Link to="/relief-camp">
           <ActionCard title="Relief Camp Details" icon="🧰" />
         </Link>
-        <Link to="/camp-public-list">
-          <ActionCard title="Relief Camp Residents List" icon="📋" />
+
+        <Link to="/resource-allocation">
+          <ActionCard title="Camp Resource Allocation" icon="📦" />
         </Link>
         <Link to="/resource-donation">
           <ActionCard title="Donate Resources" icon="🎁" />
         </Link>
         <Link to="/donation-list">
           <ActionCard title="Donation Offer List" icon="📋" />
-        </Link>
-        <Link to="/resource-allocation">
-          <ActionCard title="Camp Resource Allocation" icon="📦" />
         </Link>
         <Link to="/safety-tips">
           <ActionCard title="Tips for Staying Safe" icon="💡" />

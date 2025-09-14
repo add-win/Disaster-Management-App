@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import '../App.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ItemDonate = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        campName: '',
+        cid: '',  
         commodity: '',
         donatingPersonName: '',
         donatingQuantity: '',
@@ -17,7 +17,7 @@ const ItemDonate = () => {
 
     const handleReset = () => {
         setFormData({
-            campName: '',
+            cid: '',
             commodity: '',
             donatingPersonName: '',
             donatingQuantity: '',
@@ -28,7 +28,7 @@ const ItemDonate = () => {
     };
 
     const handleLogout = () => {
-        navigate('/admin-login');
+        navigate('/');
     };
 
     const handleChange = (e) => {
@@ -42,31 +42,31 @@ const ItemDonate = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.willing) {
-            alert("Please fill checkbox to donate Object!");
+            alert("Please check the box to confirm your donation!");
             return;
         }
 
-        else {
-            try {
-                const res = await fetch("http://localhost:5000/donate-resource", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(formData)
-                });
+        try {
+            const res = await fetch("http://localhost:5000/donate-resource", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData)
+            });
 
-                const data = await res.json();
-                if (data.success) {
-                    alert("Donation Registered Successfully!");
-                    navigate("/admin-home");
-                } else {
-                    alert("Registration failed. Check your details and try again.");
-                }
-            } catch (err) {
-                console.error("Submit Error:", err);
+            const data = await res.json();
+            if (data.success) {
+                alert("Donation Registered Successfully!");
+                navigate("/admin-home");
+            } else {
+                alert(data.message || "Registration failed. Check your details and try again.");
             }
+        } catch (err) {
+            console.error("Submit Error:", err);
         }
     };
-
+    const handleBack = () => {
+        navigate(-1);
+    };
     return (
         <div>
             <header className="header-container">
@@ -80,7 +80,14 @@ const ItemDonate = () => {
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Camp Number:</label>
-                    <input type="number" name="campName" required value={formData.campName} onChange={handleChange} placeholder='Enter Camp Number' />
+                    <input
+                        type="number"
+                        name="cid" 
+                        required
+                        value={formData.cid}
+                        onChange={handleChange}
+                        placeholder='Enter Camp Number'
+                    />
                 </div>
 
                 <div className="form-group">
@@ -109,22 +116,49 @@ const ItemDonate = () => {
 
                 <div className="form-group">
                     <label>Donating Quantity/Number:</label>
-                    <input type="number" name="donatingQuantity" placeholder="e.g. 100" required value={formData.donatingQuantity} onChange={handleChange} />
+                    <input
+                        type="number"
+                        name="donatingQuantity"
+                        placeholder="e.g. 100"
+                        required
+                        value={formData.donatingQuantity}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 <div className='form-group'>
                     <label>Name of Donating Person:</label>
-                    <input type="text" name="donatingPersonName" placeholder="Enter Name" required value={formData.donatingPersonName} onChange={handleChange} />
+                    <input
+                        type="text"
+                        name="donatingPersonName"
+                        placeholder="Enter Name"
+                        required
+                        value={formData.donatingPersonName}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 <div className="form-group">
                     <label>Phone Number of Donating Person:</label>
-                    <input type="number" name="phoneNumber" placeholder="Enter Phone Number" required value={formData.phoneNumber} onChange={handleChange} />
+                    <input
+                        type="number"
+                        name="phoneNumber"
+                        placeholder="Enter Phone Number"
+                        required
+                        value={formData.phoneNumber}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 <div className="form-group">
                     <label>Date of Delivery:</label>
-                    <input type="date" name="deliveryDate" required value={formData.deliveryDate} onChange={handleChange} />
+                    <input
+                        type="date"
+                        name="deliveryDate"
+                        required
+                        value={formData.deliveryDate}
+                        onChange={handleChange}
+                    />
                 </div>
 
                 <div className="form-group-inline">
@@ -142,15 +176,14 @@ const ItemDonate = () => {
 
                 <div className="form-group">
                     <div className='form-buttons'>
-                        <Link to="/admin-home">
-                            <button type="button" className='login-button black'>Back</button>
-                        </Link>
                         <button
-                            type="submit"
-                            className='login-button green'
+                            type="button"
+                            className="login-button black"
+                            onClick={handleBack}
                         >
-                            Submit
+                            Back
                         </button>
+                        <button type="submit" className='login-button green'>Submit</button>
                         <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
                     </div>
                 </div>

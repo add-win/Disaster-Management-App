@@ -49,11 +49,11 @@ const SafetyTips = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    navigate('/admin-login');
+    navigate('/');
   };
 
   const handleBack = () => {
-    navigate('/admin-home');
+    navigate(-1);
   };
   return (
     <div>

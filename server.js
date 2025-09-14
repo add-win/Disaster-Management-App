@@ -281,14 +281,23 @@ app.post("/update-volunteers", async (req, res) => {
   const { id, disasterid, role } = req.body;
 
   try {
-    await db.query(
+    const [result] = await db.query(
       "UPDATE volunteer SET role = ?, disasterid = ? WHERE userid = ? ",
       [role, disasterid, id]
     );
-    res.json({ success: true, message: "Volunteer Status Updated Successfully" });
+
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: "Volunteer not found" });
+    }
+
+    if (result.affectedRows > 0 && result.changedRows === 0) {
+      return res.json({ success: true, message: "No change: Volunteer already has this status" });
+    }
+
+    return res.json({ success: true, message: "Volunteer Status Updated Successfully" });
   } catch (err) {
     console.error("DB Error:", err);
-    res.status(500).json({ success: false });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
@@ -296,7 +305,7 @@ app.post("/update-volunteers", async (req, res) => {
 app.get("/all-volunteers", async (req, res) => {
   try {
     const [rows] = await db.query(`
-            SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type FROM volunteer v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;
+            SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type,d.did FROM volunteer v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.did DESC;
         `);
     res.json(rows);
   } catch (err) {
@@ -323,25 +332,26 @@ app.post("/victims", async (req, res) => {
 
 // Victim Update
 app.post("/update-victims", async (req, res) => {
-  const { id, status } = req.body;
+  const { userid, status } = req.body;
 
   try {
-    await db.query(
+    const [result] = await db.query(
       "UPDATE victim SET status = ? WHERE userid = ?",
-      [status, id]
+      [status, userid]
     );
 
-    if (["Safe", "Injured", "Hospitalized"].includes(status)) {
-      await db.query(
-        "UPDATE reliefcampusers SET userstatus = ? WHERE userid = ?",
-        [status, id]
-      );
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ success: false, message: "Victim not found" });
     }
 
-    res.json({ success: true, message: "Victim Status Updated Successfully" });
+    if (result.affectedRows > 0 && result.changedRows === 0) {
+      return res.json({ success: true, message: "No change: Victim already has this status" });
+    }
+
+    return res.json({ success: true, message: "Victim Status Updated Successfully" });
   } catch (err) {
     console.error("DB Error:", err);
-    res.status(500).json({ success: false });
+    res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 });
 
@@ -349,7 +359,7 @@ app.post("/update-victims", async (req, res) => {
 app.get("/all-victims", async (req, res) => {
   try {
     const [rows] = await db.query(
-      `SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type FROM victim v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;`
+      `SELECT v.*, p.*, d.dlocation AS disaster_name, d.dtype AS disaster_type, d.did FROM victim v INNER JOIN public p ON v.userid = p.idpublic INNER JOIN disaster d ON v.disasterid = d.did ORDER BY d.dlocation ASC;`
     );
 
     res.json(rows);
@@ -375,7 +385,7 @@ FROM volunteer v
 INNER JOIN disaster d ON v.disasterid = d.did
 INNER JOIN public p ON v.userid = p.idpublic
 GROUP BY d.did, v.role
-ORDER BY d.did ASC;`
+ORDER BY d.did DESC;`
     );
     res.json(rows);
   } catch (error) {
@@ -502,6 +512,12 @@ app.post("/status-relief", async (req, res) => {
          WHERE d.rstatus = 'Inactive' AND d.rnumber = ?`,
         [rcId]
       );
+      await db.query(
+        `DELETE vi FROM reliefcampusers vi 
+         JOIN reliefcamp di ON vi.campid = di.rnumber 
+         WHERE di.rstatus = 'Inactive' AND di.rnumber = ?`,
+        [rcId]
+      );
     } else if (rcstatus === "Active") {
       const values = commodities.map(item => [rcId, item]);
       await db.query(
@@ -545,18 +561,42 @@ app.post("/update-relief", async (req, res) => {
 // New Resident Registration in Relief Camp API
 app.post("/new-user-relief", async (req, res) => {
   const { id, rnumber, status } = req.body;
+
   try {
+    const [userCheck] = await db.query(
+      "SELECT idpublic FROM public WHERE idpublic = ?",
+      [id]
+    );
+    if (userCheck.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: `User with Id ${id} does not Exist.`,
+      });
+    }
+
+    const [campCheck] = await db.query(
+      "SELECT rnumber FROM reliefcamp WHERE rnumber = ?",
+      [rnumber]
+    );
+    if (campCheck.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Camp with Id ${rnumber} does not Exist.`,
+      });
+    }
+
     const [result] = await db.query(
-      `INSERT INTO reliefcampusers(userid, campid, userstatus) 
-             VALUES(?, ?, ?)`,
+      `INSERT INTO reliefcampusers(userid, campid, userstatus) VALUES(?, ?, ?)`,
       [id, rnumber, status]
     );
-    res.json({ success: true, userId: result.insertId });
+
+    return res.json({ success: true, userId: result.insertId });
   } catch (err) {
     console.error("DB Error:", err);
     res.status(500).json({ error: "Database Error" });
   }
 });
+
 
 // Showing Residents in a particular Camp API
 app.get("/camp-users-list", async (req, res) => {
@@ -588,18 +628,40 @@ app.get("/camp-users-list", async (req, res) => {
   }
 });
 
-// Resource Donation API
-app.post("/donate-resource", async (req, res) => {
-  const { campName, commodity, donatingPersonName, donatingQuantity, deliveryDate, phoneNumber } = req.body;
+// Accept Donation
+app.post("/accept-donation", async (req, res) => {
+  const { cid, object, amount, person, phperson, dedate } = req.body;
+
   try {
+    const [campCheck] = await db.query(
+      "SELECT rnumber FROM reliefcamp WHERE rnumber = ?",
+      [cid]
+    );
+
+    if (campCheck.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: `Camp with ID ${cid} does not exist`,
+      });
+    }
+
     const [result] = await db.query(
       "INSERT INTO donation (cid, object, amount, person, phperson, dedate) VALUES (?, ?, ?, ?, ?, ?)",
-      [campName, commodity, donatingQuantity, donatingPersonName, phoneNumber, deliveryDate]
+      [cid, object, amount, person, phperson, dedate]
     );
-    res.json({ success: true });
+
+    res.json({
+      success: true,
+      message: "Donation added successfully",
+      donationId: result.insertId,
+    });
   } catch (err) {
     console.error("DB Error:", err);
-    res.status(500).json({ success: false });
+    res.status(500).json({
+      success: false,
+      message: "Database error occurred",
+      error: err.sqlMessage,
+    });
   }
 });
 
@@ -675,7 +737,7 @@ app.post("/update-resources", async (req, res) => {
     if (result.affectedRows > 0) {
       res.json({ success: true });
     } else {
-      res.status(404).json({ success: false, message: "Resource Not Found" });
+      res.status(404).json({ success: false, message: "Camp Not Found" });
     }
   } catch (err) {
     console.error("Error Updating Status:", err);
