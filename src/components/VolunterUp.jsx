@@ -74,7 +74,7 @@ const VolunteerUpdate = () => {
     };
 
     return (
-        <div>
+        <div className="change-background-color">
             <header className="header-container">
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>

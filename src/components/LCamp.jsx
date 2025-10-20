@@ -53,7 +53,7 @@ const CampPublicList = () => {
   };
 
   return (
-    <div>
+    <div className='live-div'>
       <header className="header-container">
         <div className="logout-wrapper">
           <button onClick={handleLogout} className="logout-btn">Logout</button>

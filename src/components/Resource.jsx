@@ -52,7 +52,7 @@ const ResourceTable = () => {
   };
 
   return (
-    <div>
+    <div className="change-background-color">
       <header className="header-container">
         <div className="logout-wrapper">
           <button onClick={handleLogout} className="logout-btn">Logout</button>
@@ -61,7 +61,7 @@ const ResourceTable = () => {
         <p>Check available commodities in a specific relief camp.</p>
       </header>
 
-      <div>
+      <div className="resource-form">
         <form onSubmit={handleSubmit} className="report-form">
           <div className="form-group">
             <label>Enter Camp ID: </label>

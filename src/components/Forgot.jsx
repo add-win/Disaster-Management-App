@@ -71,7 +71,7 @@ const ForgotPassword = () => {
                 {error && <p className="error-msg">{error}</p>}
                 {!showPasswordInput ? (
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
+                        <div className="form-group-login">
                             <label>Enter your Email or Username:</label>
                             <input
                                 type="text"

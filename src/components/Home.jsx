@@ -73,7 +73,7 @@ export const AdminHome = () => {
 
   return (
     <div>
-      <header className="header-container">
+      <header className="header-container1">
         <div className="back-wrapper">
           <button onClick={handleBack} className="home-btn">Home</button>
         </div>
@@ -197,7 +197,6 @@ export const AdminHome = () => {
           <ActionCard title="Tips for Staying Safe" icon="💡" />
         </Link>
       </div>
-
       <footer>
         © 2025 Disaster Management System | Built with ❤️ Young Professionals
       </footer>
@@ -258,15 +257,10 @@ export const PublicHome = () => {
         </ul>
       </section>
 
-      <div className="profile-view-container">
-        <Link to="/profile-view" style={{ textDecoration: 'none' }}>
-          <button className="profile-btn">
-            👤 Profile View
-          </button>
-        </Link>
-      </div>
-
       <div className="action-grid">
+        <Link to="/profile-view" style={{ textDecoration: 'none' }}>
+            <ActionCard title ="Profile View"  icon="👤" />
+        </Link>
         <Link to="/live-updates">
           <ActionCard title="List of Active Disasters" icon="🚨" />
         </Link>
@@ -316,7 +310,7 @@ export const PublicHome = () => {
         </Link>
       </div>
 
-      <footer>
+      <footer className="home-footer">
         © 2025 Disaster Management System | Built with ❤️ Young Professionals
       </footer>
     </div >

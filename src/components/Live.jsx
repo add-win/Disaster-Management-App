@@ -32,7 +32,7 @@ const LiveUpdates = () => {
   }, []);
 
   return (
-    <div>
+    <div className='live-div'>
       <header className="header-container">
         <div className="back-wrapper">
           <button onClick={handleBack} className="back-btn">Back</button>
@@ -85,7 +85,7 @@ const LiveUpdates = () => {
         )}
       </div>
 
-      <footer>
+      <footer className='live-footer'>
         © 2025 Disaster Management System | Stay informed, stay safe.
       </footer>
     </div>
