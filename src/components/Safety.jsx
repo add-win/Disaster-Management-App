@@ -67,21 +67,22 @@ const SafetyTips = () => {
         <h1>Safety Tips</h1>
         <p>Basic safety instructions during natural disasters.</p>
       </header>
-
-      <section className="tips-grid">
-        {safetyTips.map((category, index) => (
-          <div className="contact-card" key={index}>
-            <div className="contact-icon text-4xl">{category.icon}</div>
-            <h3>{category.title}</h3>
-            <ul>
-              {category.tips.map((tip, i) => (
-                <li key={i}>• {tip}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </section>
-
+      
+      <div className="divider">
+        <section className="tips-grid">
+          {safetyTips.map((category, index) => (
+            <div className="contact-card" key={index}>
+              <div className="contact-icon text-4xl">{category.icon}</div>
+              <h3>{category.title}</h3>
+              <ul>
+                {category.tips.map((tip, i) => (
+                  <li key={i}>• {tip}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </section>
+      </div>
       <footer>
         © 2025 Disaster Management System | Be alert. Stay safe.
       </footer>

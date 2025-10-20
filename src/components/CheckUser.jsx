@@ -56,7 +56,7 @@ const CheckUser = () => {
                 <h1>Check User Details</h1>
                 <p>Please provide the detail of the user to be checked.</p>
             </header>
-
+            <div className="divider">
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Select the Label which is going to Give as Input:</label>
@@ -126,6 +126,7 @@ const CheckUser = () => {
                     </table>
                 </div>
             )}
+            </div>
 
             <footer>
                 © 2025 Disaster Management System | United for safety.

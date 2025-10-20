@@ -62,6 +62,7 @@ const CampPublicList = () => {
         <p>Search and display residents in a particular relief camp.</p>
       </header>
 
+      <div className="divider">
       <form className="report-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label>Enter Camp ID:</label>
@@ -123,6 +124,7 @@ const CampPublicList = () => {
         ) : (
           searched && <p>No Residents found for this camp.</p>
         )}
+      </div>
       </div>
 
       <footer>

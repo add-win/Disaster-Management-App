@@ -43,18 +43,15 @@ const AdminLogin = () => {
 return (
     <div className="admin-login-page">
       <div className="admin-login-card">
-        {/* The Header now sits at the very top */}
         <div className='login-header'>
-          <img src='../images/admin1.png' alt='Admin Icon' className='user-icon' />
+          <img src='./images/admin1.png' alt='Admin Icon' className='user-icon' />
           <h3>Administrator Login</h3>
         </div>
         
-        {/* New content wrapper for padding */}
         <div className='login-content'>
           {error && <p className="error-msg">{error}</p>}
 
           <form onSubmit={handleLogin}>
-            {/* ... rest of the form ... */}
             <div className="form-group-login">
               <label>Username:</label>
               <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required placeholder='Username' />

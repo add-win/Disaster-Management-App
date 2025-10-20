@@ -4,6 +4,7 @@ import LandingPage from './components/Landing.jsx';
 import AdminLogin from './components/AdminLogin.jsx';
 import PublicLogin from './components/PublicLogin.jsx';
 import PublicRegistrations from './components/NewPublic.jsx';
+import PublicRegistrationsA from './components/NewPublicAdmin.jsx';
 import ForgotPassword from './components/Forgot.jsx';
 import { AdminHome, PublicHome } from './components/Home.jsx';
 import ProfileView from './components/ProfileView.jsx';
@@ -42,6 +43,7 @@ function App() {
         <Route path='/admin-login' element={<AdminLogin />} />
         <Route path='/public-login' element={<PublicLogin />} />
         <Route path='/new-user-registrations' element={<PublicRegistrations />} />
+        <Route path='/new-user' element={<PublicRegistrationsA />} />
         <Route path='/forgot-password' element={<ForgotPassword />} />
         <Route path='/admin-home' element={<AdminHome />} />
         <Route path='/public-home' element={<PublicHome />} />

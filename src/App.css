@@ -12,19 +12,6 @@ header {
   border-bottom: 1px solid #ccc;
 }
 
-/* header h1 {
-  font-size: 2.5rem;
-  color: rgb(0, 6, 195);
-  margin: 0;
-} */
-
-
-/* header p {
-  margin-top: 0.5rem;
-  color: #555;
-  margin-bottom: 0.5rem;
-} */
-
 .change-background-color {
     background-color: #AAB7B8;
 }
@@ -98,17 +85,12 @@ textarea {
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  /* Add transform and box-shadow to the transition list and increase time */
   transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .login-button-landing.blue:hover {
-  background-color: #49434a; /* Slightly darker background */
-  
-  /* 1. Scale: Make the button 3% bigger */
+  background-color: #49434a; 
   transform: scale(1.02); 
-  
-  /* 2. Shadow: Add a large, soft shadow to make it appear lifted */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
 
@@ -122,20 +104,14 @@ textarea {
   font-size: 17px;
   font-weight: bold;
   cursor: pointer;
-  /* Add transform and box-shadow to the transition list and increase time */
   transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
 
 .login-button-landing.green:hover {
-  background-color: #886c4f; /* Slightly darker background */
-  
-  /* 1. Scale: Make the button 3% bigger */
+  background-color: #886c4f; 
   transform: scale(1.02); 
-  
-  /* 2. Shadow: Add a large, soft shadow to make it appear lifted */
   box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
-
 
 .contact-card {
   background-color: #D5D8DC;
@@ -165,9 +141,10 @@ textarea {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 1.5rem;
-  padding-top: 1rem;
+  padding-top: 0;
   padding-left: 2rem;
   padding-right: 2rem;
+  padding-bottom: 2rem;
   text-align: center;
   margin: 0.5rem auto;
 }
@@ -262,34 +239,25 @@ textarea {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  /* Premium Dark Background: Deep Navy/Charcoal gradient */
   background: linear-gradient(135deg, #0A1931 0%, #061020 100%);
   position: relative;
   overflow: hidden;
 }
 
 .admin-login-card {
-  /* Premium Form Color: Soft, elegant dark gray/blue */
   background: #182A45;
-  /* Subtle border/shadows with a Sapphire Blue accent */
   border: 1px solid #2B4C77;
   box-shadow:
     0 0 15px rgba(0, 150, 255, 0.1),
-    /* Subtle blue glow */
     0 8px 30px rgba(0, 0, 0, 0.8);
-  /* Deep shadow for depth */
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-
-  /* Retain 3D perspective and sizing */
   perspective: 800px;
   padding: 0;
   padding-bottom: 0.7rem;
   border-radius: 12px;
   width: 90%;
-  /* Use % for mobile responsiveness */
   max-width: 350px;
-  /* Increased max-height to accommodate new links */
   max-height: 520px;
   text-align: center;
   color: #E0E0E0;
@@ -297,23 +265,17 @@ textarea {
   z-index: 1;
 }
 
-
-/* --- 2. Heading Color and Style (The Projected Element) --- */
 .login-header {
   position: relative;
   width: 100%;
   padding: 0.8rem 0;
   z-index: 10;
-
-  /* Premium Heading Color: Reflective Deep Blue */
   background: linear-gradient(135deg, #1C3358 0%, #0B1A2F 100%);
   border-top-left-radius: 12px;
   border-top-right-radius: 12px;
   box-shadow: inset 0 -3px 5px rgba(0, 150, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.8);
-
   transform-origin: center top;
   transform: perspective(2000px) rotateX(5deg);
-
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,7 +288,6 @@ textarea {
 }
 
 .public-header-container h1 {
-    /* Premium Heading Text Color: Vibrant Electric Blue */
   color: #00BFFF;
   margin-top: 0.1rem;
   margin-bottom: 0;
@@ -337,7 +298,6 @@ textarea {
 }
 
 .public-header-container p{
-    /* Premium Heading Text Color: Vibrant Electric Blue */
   color: #00BFFF;
   margin-top: 0.1rem;
   margin-bottom: 0;
@@ -351,12 +311,10 @@ textarea {
   width: 50px;
   height: 50px;
   margin-bottom: 0.2rem;
-  /* Subtle blue glow for icon */
   filter: drop-shadow(0 0 5px rgba(0, 150, 255, 0.5));
 }
 
 .admin-login-card h3 {
-  /* Premium Heading Text Color: Vibrant Electric Blue */
   color: #00BFFF;
   margin-top: 0.1rem;
   margin-bottom: 0;
@@ -366,40 +324,22 @@ textarea {
   font-size: 1.5rem;
 }
 
-/* NEW: Wrapper to restore internal padding for the form */
 .login-content {
   padding: 0 1.5rem;
   padding-top: 1.5rem;
 }
 
-/*to modify new user registration*/
 .new-user{
-  /* Premium Form Color: Soft, elegant dark gray/blue */
   background: linear-gradient(135deg, #0A1931 0%, #061020 100%);
-  /* Subtle border/shadows with a Sapphire Blue accent */
   border: 1px solid #2B4C77;
   box-shadow:
     0 0 15px rgba(0, 150, 255, 0.1),
-    /* Subtle blue glow */
     0 8px 30px rgba(0, 0, 0, 0.8);
-  /* Deep shadow for depth */
 }
 
 .public-report-form{
-  /* Premium Form Color: Soft, elegant dark gray/blue */
   background: #182A45;
-  /* Subtle border/shadows with a Sapphire Blue accent */
-  /* border: 1px solid #2B4C77; */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  /* box-shadow:
-    0 0 15px rgba(0, 150, 255, 0.1), */
-    /* Subtle blue glow */
-    /* 0 8px 30px rgba(0, 0, 0, 0.8); */
-  /* Deep shadow for depth */
-  /* backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); */
-
-  /* Retain 3D perspective and sizing */
   max-width: 600px;
   margin: 2rem auto;
   margin-bottom: 2rem;
@@ -408,17 +348,16 @@ textarea {
   border-radius: 12px;
 }
 
-/* to modify public home page*/
 .header-container{
   background: linear-gradient(135deg, #2E4053 0%, #233548 100%);
   padding: 2rem;
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.3), /* existing main shadow */
-    0 12px 30px rgba(0, 0, 0, 0.2), /* deeper shadow */
-    inset 0 -2px 5px rgba(255, 255, 255, 0.1); /* inner highlight for depth */
+    0 8px 20px rgba(0, 0, 0, 0.3),
+    0 12px 30px rgba(0, 0, 0, 0.2),
+    inset 0 -2px 5px rgba(255, 255, 255, 0.1);
   border-bottom: none;
   text-align: center;
-  transform: translateY(0px); /* small lift */
+  transform: translateY(0px);
 }
 
 .header-container h1{
@@ -458,34 +397,22 @@ textarea {
 
 .profile-btn:hover {
   background-color: #f7cf2f;
-  transform: translateY(-4px) scale(1.05); /* Pop-up effect */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for lifted look */
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 
 /*Report Form*/
 .report-disaster{
   background-color: #AAB7B8;
 }
+
 .report-form {
-  /* Premium Form Color: Soft, elegant dark gray/blue */
   background: #D5D8DC;
-  /* Subtle border/shadows with a Sapphire Blue accent */
-  /* border: 1px solid #2B4C77; */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border: 1px solid #2B4C77;
   box-shadow:
     0 0 15px rgba(0, 150, 255, 0.1),
-    /* Subtle blue glow */
     0 8px 30px rgba(0, 0, 0, 0.8);
-  /* box-shadow:
-    0 0 15px rgba(0, 150, 255, 0.1), */
-    /* Subtle blue glow */
-    /* 0 8px 30px rgba(0, 0, 0, 0.8); */
-  /* Deep shadow for depth */
-  /* backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px); */
-
-  /* Retain 3D perspective and sizing */
   max-width: 600px;
   margin: 2rem auto;
   margin-bottom: 2rem;
@@ -501,13 +428,11 @@ textarea {
   color: #ffffff;
 }
 
-
 .form-group {
   position: relative;
   margin-bottom: 1.8rem;
   margin-left: 1.2rem;
   margin-right: 1.2rem;
-  /* Slightly tighter spacing */
 }
 
 .form-group-login{
@@ -515,9 +440,7 @@ textarea {
   margin-bottom: 1.8rem;
   margin-left: 1.2rem;
   margin-right: 1.2rem;
-  /* Slightly tighter spacing */
 }
-
 
 .form-group label {
   color: #444c57;
@@ -535,16 +458,10 @@ textarea {
   margin-bottom: 5px;  
 }
 
-
 .form-group input {
-  /* 💡 Optimized for fit and responsiveness */
   width: 100%;
-  /* Full width */
   box-sizing: border-box;
-  /* Ensures padding doesn't cause overflow */
   padding: 10px 0;
-  /* Only vertical padding */
-
   background: transparent;
   border: none;
   border-bottom: 1px solid #85a2c5;
@@ -555,14 +472,9 @@ textarea {
 }
 
 .form-group-login input{
-  /* 💡 Optimized for fit and responsiveness */
   width: 100%;
-  /* Full width */
   box-sizing: border-box;
-  /* Ensures padding doesn't cause overflow */
   padding: 10px 0;
-  /* Only vertical padding */
-
   background: transparent;
   border: none;
   border-bottom: 1px solid #3A5F8C;
@@ -581,7 +493,6 @@ textarea {
 }
 
 .form-group input:focus {
-  /* Thicker, vibrant border on focus */
   border-bottom: 2px solid #90a5c1;
   box-shadow: none;
 }
@@ -590,8 +501,6 @@ textarea {
   border-bottom: 2px solid #0788b3;
   box-shadow: none;
 }
-
-/* --- 4. Button Colors --- */
 
 .form-buttons {
   display: flex;
@@ -610,7 +519,6 @@ textarea {
   transition: all 0.3s ease;
 }
 
-/* Back Button (Dark Gray/Charcoal) */
 .login-button.black {
   background: #3A4C63;
   color: #FFFFFF;
@@ -624,7 +532,6 @@ textarea {
   transform: translateY(-2px);
 }
 
-/* Login Button (Electric Blue Accent) */
 .login-button.blue {
   background: linear-gradient(145deg, #00BFFF, #0099FF);
   color: #FFFFFF;
@@ -648,7 +555,6 @@ textarea {
   transform: translateY(-2px);
 }
 
-/* Reset Button (Subtle Dark Red/Maroon) */
 .login-button.red {
   background: #803333;
   color: #FFFFFF;
@@ -662,13 +568,10 @@ textarea {
   transform: translateY(-2px);
 }
 
-/* --- 5. Navigational Links --- */
-
 .login-links-container {
   text-align: center;
   margin-top: 1rem;
   padding-top: 1rem;
-  /* Separator line matching card internal color */
   border-top: 1px solid #1C3358;
 }
 
@@ -677,7 +580,6 @@ textarea {
   margin-top: 1rem;
   padding-top: 1rem;
   border-top: 1px solid #1C3358;
-  /* Added display: flex and flex-direction: column to ensure stacking */
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
@@ -697,33 +599,16 @@ textarea {
 
 .error-msg {
   color: #FF5555;
-  /* Soft red for errors */
   margin-top: 0.8rem;
-  /* Adjusted for better vertical spacing */
   margin-bottom: 0.8rem;
   font-size: 0.9rem;
 }
 
-
-/* footer {
-    grid-column: span 2;
-    text-align: center;
-    margin-top: 2rem;
-    padding-top: 1rem;
-    
-    color: #6A8BB2;
-    font-size: 0.8rem;
-} */
-
-/* --- 5. Mobile Responsiveness for Grid --- */
-
 @media (max-width: 768px) {
     .registration-form-grid {
-        /* Collapse to a single column on small screens */
         grid-template-columns: 1fr;
     }
     .registration-form-grid .full-span {
-        /* Ensure all fields take full width */
         grid-column: span 1;
     }
 }
@@ -747,8 +632,8 @@ textarea {
 .logout-btn:hover,
 .back-btn:hover {
   background-color: #D4AC0D;
-  transform: translateY(-4px) scale(1.05); /* Pop-up effect */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for lifted look */
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* HEADER */
@@ -756,18 +641,20 @@ textarea {
   background: linear-gradient(135deg, #2E4053 0%, #233548 100%);
   padding: 2rem;
   box-shadow:
-    0 8px 20px rgba(0, 0, 0, 0.3), /* existing main shadow */
-    0 12px 30px rgba(0, 0, 0, 0.2), /* deeper shadow */
-    inset 0 -2px 5px rgba(255, 255, 255, 0.1); /* inner highlight for depth */
+    0 8px 20px rgba(0, 0, 0, 0.3), 
+    0 12px 30px rgba(0, 0, 0, 0.2), 
+    inset 0 -2px 5px rgba(255, 255, 255, 0.1); 
   border-bottom: none;
   text-align: center;
-  transform: translateY(0px); /* small lift */
+  transform: translateY(0px);
 }
+
 .header-container1 h1 {
   color: #F1C40F;
   font-size: 2.5rem;
   margin-bottom: 0.5rem;
 }
+
 .header-container1 p {
   color: #F1C40F;
   font-size: 1.1rem;
@@ -778,10 +665,12 @@ textarea {
   padding: 2rem;
   background-color: #AAB7B8;
 }
+
 .alert-section h2 {
   font-size: 2rem;
   color: #1e40af;
   margin-bottom: 1rem;
+  margin-top: 0rem;
 }
 
 /* ALERT LIST */
@@ -792,6 +681,7 @@ textarea {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   list-style-type: none;
 }
+
 .alert-list li {
   margin-bottom: 0.75rem;
   padding: 1rem;
@@ -801,6 +691,7 @@ textarea {
   position: relative;
   transition: background 0.3s ease;
 }
+
 .alert-list li:hover {
   background-color: #E5E8E8;
 }
@@ -809,14 +700,15 @@ textarea {
 .p {
   grid-template-columns: repeat(3, minmax(250px, 1fr));
 }
+
 .action-grid {
   margin: 0;
-  padding: 2rem;
   display: grid;
   gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   background-color: #AAB7B8;
 }
+
 .action-grid a {
   text-decoration: none;
   color: inherit;
@@ -832,16 +724,19 @@ textarea {
   transition: all 0.3s ease;
   cursor: pointer;
 }
+
 .action-card:hover {
   transform: translateY(-6px) scale(1.03);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   background-color: #CCD1D1;
 }
+
 .action-card-icon {
   font-size: 3.5rem;
   margin-bottom: 0.75rem;
   color: #1E3A8A;
 }
+
 .action-card h3 {
   margin-top: 0.5rem;
   font-size: 1.4rem;
@@ -856,15 +751,13 @@ footer {
   text-align: center;
   font-size: 0.9rem;
   color: #424242;
-  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2); /* 3D shadow */
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2);
 }
-
-
 
 /*Live Pages*/
 .live-updates-page {
   margin: 0.5rem auto;
-  max-width: 800px;
+  max-width: 900px;
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
@@ -909,7 +802,6 @@ footer {
 .live-updates-page p {
   font-size: 1.1rem;
   margin-top: 2rem;
-  color: #64748b;
 }
 
 /*Check User Page*/
@@ -966,7 +858,6 @@ footer {
 .user-details tr:last-child td {
   border-bottom: none;
 }
-
 
 /*Relief Camps*/
 .action-card p {
@@ -1049,13 +940,12 @@ footer {
   font-weight: bold;
 }
 
-
 /*Safety Page*/
 .tips-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
-  padding: 2.20rem;
+  padding: 2.25rem;
 }
 
 .contact-card ul {
@@ -1238,7 +1128,6 @@ footer {
   transform: scale(1.05);
 }
 
-
 @media (max-width: 768px) {
   .newuserprofile .profile-card {
     width: 100%;
@@ -1257,13 +1146,10 @@ footer {
 }
 
 .live-updates-page{
-  min-height: 100vh;
   min-width: 60%;
-  background-color: #D5D8DC;
-  margin-top: 10%;
-  margin-bottom: 10%;
+  margin-top: 1%;
+  margin-bottom: 2%;
   border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Relief Camp Tables*/
@@ -1316,7 +1202,7 @@ footer {
 }
 
 .resource-form {
-  min-height: 100vh;
+  min-height: 60vh;
 }
 
 .contacts-card {
@@ -1365,4 +1251,12 @@ footer {
 
 .fade-in.delay-3 {
   animation-delay: 0.9s;
+}
+
+.divider{
+  min-height: 61vh;
+}
+
+.divider1{
+  min-height: 50vh;
 }

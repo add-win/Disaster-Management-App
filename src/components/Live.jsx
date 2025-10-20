@@ -44,7 +44,7 @@ const LiveUpdates = () => {
         <p>Showing all Reported Disasters which are Currently Ongoing.</p>
       </header>
 
-      <div className="live-updates-page">
+      <div className="divider1 live-updates-page">
         {updates.length > 0 ? (
           <table className="disaster-table">
             <thead>

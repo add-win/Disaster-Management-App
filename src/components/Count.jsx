@@ -55,7 +55,7 @@ const List = () => {
         <p>Showing count of volunteers by disaster and role.</p>
       </header>
 
-      <div className="live-updates-page">
+      <div className="divider1 live-updates-page">
         {updates.length > 0 ? (
           Object.values(groupedData).map((group, i) => (
             <div key={i} className="disaster-section">

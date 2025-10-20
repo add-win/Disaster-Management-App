@@ -67,10 +67,10 @@ const VolunteerList = () => {
           <button onClick={handleLogout} className="logout-btn">Logout</button>
         </div>
         <h1>List of Volunteers</h1>
-        <p>Grouped by disaster name and ID.</p>
+        <p>Active Volunteers for Each Disaster</p>
       </header>
 
-      <div className="live-updates-page">
+      <div className="divider1 live-updates-page">
         {Object.keys(groupedVolunteers).length > 0 ? (
           Object.entries(groupedVolunteers).map(([disasterKey, vols]) => (
             <div key={disasterKey} className="disaster-section">

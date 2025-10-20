@@ -2,7 +2,7 @@ import { useState } from 'react';
 import '../App.css';
 import { useNavigate } from 'react-router-dom';
 
-const PublicRegistrations = () => {
+const PublicRegistrationsA = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
@@ -53,7 +53,7 @@ const PublicRegistrations = () => {
             if (response.ok) {
                 alert(`New User Registered Successfully!\nUser ID: ${data.userId}`);
                 handleReset();
-                navigate('/public-login')
+                navigate('/admin-home')
             } else {
                 alert(`${data.message}`);
             }
@@ -186,4 +186,4 @@ const PublicRegistrations = () => {
     );
 };
 
-export default PublicRegistrations;
+export default PublicRegistrationsA;

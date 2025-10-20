@@ -47,7 +47,7 @@ const ItemDonate = () => {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/donate-resource", {
+            const res = await fetch("http://localhost:5000/accept-donation", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)

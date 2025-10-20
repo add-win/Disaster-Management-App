@@ -62,6 +62,7 @@ const ReliefStatusUpdates = () => {
                 <p>Please provide the current Status of the relief camp.</p>
             </header>
 
+            <div className="divider">
             <form className="report-form" onSubmit={handleSubmit}>
                 <div className="form-group">
                     <label>Relief Camp ID:</label>
@@ -92,6 +93,7 @@ const ReliefStatusUpdates = () => {
                     </div>
                 </div>
             </form>
+            </div>
 
             <footer>
                 © 2025 Disaster Management System | United for safety.

@@ -533,7 +533,7 @@ app.post("/status-relief", async (req, res) => {
     }
   } catch (err) {
     console.error("Error Updating Status:", err);
-    res.status(500).json({ success: false, message: "Database Error" });
+    res.status(500).json({ success: false, message: "Relief Camp Not Found" });
   }
 });
 
@@ -620,7 +620,15 @@ app.get("/camp-users-list", async (req, res) => {
         residents: rows
       });
     } else {
-      res.json({ success: false, message: "No residents found in this camp" });
+      const [campCheck] = await db.query(
+        "SELECT rnumber FROM reliefcamp WHERE rnumber = ?",
+        [campId]
+      );
+      if (campCheck.length === 0) {
+        res.json({ success: false, message: "Camp Not Found" });
+      } else {
+        res.json({ success: false, message: "No residents found in this camp" });
+      }
     }
   } catch (err) {
     console.error("DB Error:", err);
@@ -628,9 +636,15 @@ app.get("/camp-users-list", async (req, res) => {
   }
 });
 
-// Accept Donation
 app.post("/accept-donation", async (req, res) => {
-  const { cid, object, amount, person, phperson, dedate } = req.body;
+  const {
+    cid,
+    commodity,
+    donatingQuantity,
+    donatingPersonName,
+    phoneNumber,
+    deliveryDate
+  } = req.body;
 
   try {
     const [campCheck] = await db.query(
@@ -647,7 +661,7 @@ app.post("/accept-donation", async (req, res) => {
 
     const [result] = await db.query(
       "INSERT INTO donation (cid, object, amount, person, phperson, dedate) VALUES (?, ?, ?, ?, ?, ?)",
-      [cid, object, amount, person, phperson, dedate]
+      [cid, commodity, donatingQuantity, donatingPersonName, phoneNumber, deliveryDate]
     );
 
     res.json({
@@ -694,7 +708,7 @@ app.get("/live-donation/:campId", async (req, res) => {
 });
 
 // Accept Donation API
-app.post("/accept-donation", async (req, res) => {
+app.post("/accept-donations", async (req, res) => {
   const { donationid, campId } = req.body;
 
   try {

@@ -41,7 +41,7 @@ const AcceptDonation = () => {
         }
 
         try {
-            const res = await fetch("http://localhost:5000/accept-donation", {
+            const res = await fetch("http://localhost:5000/accept-donations", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -84,7 +84,7 @@ const AcceptDonation = () => {
                 <h1>Acceptance of Donation</h1>
                 <p>Please accept donations to update resources.</p>
             </header>
-            <div className='donation-form'>
+            <div className="divider">
                 <form className="report-form" onSubmit={handleSubmit}>
                     <div className="form-group">
                         <label>Enter Camp Number:</label>
@@ -144,11 +144,10 @@ const AcceptDonation = () => {
                         </div>
                     </div>
                 </form>
-
-                <footer>
-                    © 2025 Disaster Management System | Every hand counts.
-                </footer>
             </div>
+            <footer>
+                © 2025 Disaster Management System | Every hand counts.
+            </footer>
         </div>
     );
 };

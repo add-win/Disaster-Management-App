@@ -129,7 +129,7 @@ export const AdminHome = () => {
         <Link to="/list-disasters">
           <ActionCard title="List of Disasters Occurred" icon="📋" />
         </Link>
-        <Link to='/user-registrations'>
+        <Link to='/new-user'>
           <ActionCard title="New User Registration" icon="👥" />
         </Link>
 
@@ -148,7 +148,6 @@ export const AdminHome = () => {
         <Link to='/check-user'>
           <ActionCard title="Check User Existence" icon="🔍" />
         </Link>
-
         <Link to="/victim-support">
           <ActionCard title="Victim Registration" icon="🆘" />
         </Link>
@@ -273,10 +272,15 @@ export const PublicHome = () => {
         <Link to='/volunteer-count'>
           <ActionCard title="Volunteer Distribution" icon="📊" />
         </Link>
+        <Link to="/volunteer-update">
+          <ActionCard title="Update Volunteer Role" icon="🆙" />
+        </Link>
         <Link to='/volunteer-list'>
           <ActionCard title="List of Active Volunteers" icon="📋" />
         </Link>
-
+        <Link to='/check-user'>
+          <ActionCard title="Check User Existence" icon="🔍" />
+        </Link>
         <Link to="/victim-support">
           <ActionCard title="Victim Registration" icon="🆘" />
         </Link>
@@ -308,6 +312,8 @@ export const PublicHome = () => {
         <Link to="/emergency-contacts">
           <ActionCard title="Emergency Contacts" icon="📞" />
         </Link>
+        <ActionCard title="Be Safe, Stay Safe" icon="🏠" />
+        <ActionCard title="Help is on the Way!" icon="🚑" />
       </div>
 
       <footer className="home-footer">
