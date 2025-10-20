@@ -66,49 +66,49 @@ const PublicRegistrations = () => {
         navigate(-1);
     };
     return (
-        <div>
-            <header className="header-container">
+        <div className="new-user">
+            <header className="public-header-container">
                 <h1>New User Registration</h1>
                 <p>Please provide the details to register.</p>
             </header>
 
-            <form className="report-form" onSubmit={handleSubmit}>
-                <div className="form-group">
+            <form className="public-report-form" onSubmit={handleSubmit}>
+                <div className="form-group-login">
                     <label>Name:</label>
                     <input type="text" name="name" required value={formData.name} onChange={handleChange} placeholder='Enter Name' />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Date of Birth:</label>
                     <input type="date" name="dob" required value={formData.dob} onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Mail ID:</label>
                     <input type="text" name="mailId" placeholder="e.g. user@example.com" required value={formData.mailId} onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Phone Number:</label>
                     <input type="text" name="phoneNumber" placeholder="e.g. 1234567890" required value={formData.phoneNumber} onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>House Name:</label>
                     <input type="text" name="houseName" placeholder="e.g. ABC Villa" required value={formData.houseName} onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Location Name / Area:</label>
                     <input type="text" name="location" placeholder="e.g. Thrissur" required value={formData.location} onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Panchayath Name:</label>
                     <input type="text" name="panchayathName" placeholder="e.g. ABC Panchayath" required value={formData.panchayathName} onChange={handleChange} />
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>District:</label>
                     <select name="district" required value={formData.district} onChange={handleChange}>
                         <option value="">--Select a district--</option>
@@ -129,7 +129,7 @@ const PublicRegistrations = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>State:</label>
                     <select name="state" required value={formData.state} onChange={handleChange}>
                         <option value="">--Select a state--</option>
@@ -150,7 +150,7 @@ const PublicRegistrations = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Gender:</label>
                     <select name="gender" required value={formData.gender} onChange={handleChange}>
                         <option value="">--Select Gender--</option>
@@ -159,7 +159,7 @@ const PublicRegistrations = () => {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group-login">
                     <label>Password: (⚠️ Remember this password for future logins)</label>
                     <input type="password" name="password" placeholder="Enter your password" required value={formData.password} onChange={handleChange} />
                 </div>
@@ -179,7 +179,7 @@ const PublicRegistrations = () => {
                 </div>
             </form>
 
-            <footer>
+            <footer className='public-footer'>
                 © 2025 Disaster Management System | United for safety.
             </footer>
         </div>

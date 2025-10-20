@@ -83,7 +83,7 @@ const ProfileView = () => {
 
   return (
     <div className="profile-container">
-      <header className="profile-header">
+      <header className="header-container">
         <div className="back-wrapper">
           <button onClick={handleBack} className="back-btn">Back</button>
         </div>

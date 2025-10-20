@@ -40,34 +40,42 @@ const AdminLogin = () => {
     }
   };
 
-  return (
+return (
     <div className="admin-login-page">
       <div className="admin-login-card">
-        <h2>Administrator Login</h2>
+        {/* The Header now sits at the very top */}
+        <div className='login-header'>
+          <img src='../images/admin1.png' alt='Admin Icon' className='user-icon' />
+          <h3>Administrator Login</h3>
+        </div>
+        
+        {/* New content wrapper for padding */}
+        <div className='login-content'>
+          {error && <p className="error-msg">{error}</p>}
 
-        {error && <p className="error-msg">{error}</p>}
-
-        <form onSubmit={handleLogin}>
-          <div className="form-group">
-            <label>Username:</label>
-            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required placeholder='Username'/>
-          </div>
-
-          <div className="form-group">
-            <label>Password:</label>
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='Password' />
-          </div>
-
-          <div className="form-group">
-            <div className='form-buttons'>
-              <Link to="/">
-                <button className='login-button black'>Back</button>
-              </Link>
-              <button type="submit" className="login-button blue">Login</button>
-              <button type="reset" onClick={handleReset} className='login-button red'>Reset</button>
+          <form onSubmit={handleLogin}>
+            {/* ... rest of the form ... */}
+            <div className="form-group-login">
+              <label>Username:</label>
+              <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} required placeholder='Username' />
             </div>
-          </div>
-        </form>
+
+            <div className="form-group-login">
+              <label>Password:</label>
+              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder='Password' />
+            </div>
+
+            <div className="form-group-login">
+              <div className='form-buttons'>
+                <Link to="/">
+                  <button className='login-button black'>Back</button>
+                </Link>
+                <button type="submit" className="login-button blue">Login</button>
+                <button type="reset" onClick={handleReset} className='login-button red'>Reset</button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );

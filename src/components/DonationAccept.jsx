@@ -76,7 +76,7 @@ const AcceptDonation = () => {
     };
 
     return (
-        <div>
+        <div className='change-background-color'>
             <header className="header-container">
                 <div className="logout-wrapper">
                     <button onClick={handleLogout} className="logout-btn">Logout</button>
@@ -84,70 +84,71 @@ const AcceptDonation = () => {
                 <h1>Acceptance of Donation</h1>
                 <p>Please accept donations to update resources.</p>
             </header>
-
-            <form className="report-form" onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label>Enter Camp Number:</label>
-                    <input
-                        type="text"
-                        value={campId}
-                        onChange={(e) => {
-                            setCampId(e.target.value);
-                            fetchDonations(e.target.value);
-                        }}
-                        placeholder='Enter Relief Camp Number '
-                        required
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label>Donation Object:</label>
-                    <select
-                        name="donationid"
-                        value={formData.donationid}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="">-- Select Donation --</option>
-                        {donation.map((d) => (
-                            <option key={d.donationid} value={d.donationid}>
-                                {d.person} - {d.object} - Qty: {d.amount}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="form-group-inline">
-                    <input
-                        type="checkbox"
-                        name="willing"
-                        checked={formData.willing}
-                        onChange={handleChange}
-                        style={{ width: "1.2rem", height: "1.2rem" }}
-                    />
-                    <label htmlFor="willing">
-                        I verify that object has Delivered Successfully.
-                    </label>
-                </div>
-
-                <div className="form-group">
-                    <div className='form-buttons'>
-                        <button
-                            type="button"
-                            className="login-button black"
-                            onClick={handleBack}
-                        >
-                            Back
-                        </button>
-                        <button type="submit" className='login-button green'>Submit</button>
-                        <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
+            <div className='donation-form'>
+                <form className="report-form" onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Enter Camp Number:</label>
+                        <input
+                            type="text"
+                            value={campId}
+                            onChange={(e) => {
+                                setCampId(e.target.value);
+                                fetchDonations(e.target.value);
+                            }}
+                            placeholder='Enter Relief Camp Number '
+                            required
+                        />
                     </div>
-                </div>
-            </form>
 
-            <footer>
-                © 2025 Disaster Management System | Every hand counts.
-            </footer>
+                    <div className="form-group">
+                        <label>Donation Object:</label>
+                        <select
+                            name="donationid"
+                            value={formData.donationid}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value="">-- Select Donation --</option>
+                            {donation.map((d) => (
+                                <option key={d.donationid} value={d.donationid}>
+                                    {d.person} - {d.object} - Qty: {d.amount}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    <div className="form-group-inline">
+                        <input
+                            type="checkbox"
+                            name="willing"
+                            checked={formData.willing}
+                            onChange={handleChange}
+                            style={{ width: "1.2rem", height: "1.2rem" }}
+                        />
+                        <label htmlFor="willing">
+                            I verify that object has Delivered Successfully.
+                        </label>
+                    </div>
+
+                    <div className="form-group">
+                        <div className='form-buttons'>
+                            <button
+                                type="button"
+                                className="login-button black"
+                                onClick={handleBack}
+                            >
+                                Back
+                            </button>
+                            <button type="submit" className='login-button green'>Submit</button>
+                            <button type="reset" className='login-button red' onClick={handleReset}>Reset</button>
+                        </div>
+                    </div>
+                </form>
+
+                <footer>
+                    © 2025 Disaster Management System | Every hand counts.
+                </footer>
+            </div>
         </div>
     );
 };

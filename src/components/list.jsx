@@ -32,7 +32,7 @@ const List = () => {
   }, []);
 
   return (
-    <div>
+    <div className='live-div'>
       <header className="header-container">
         <div className="back-wrapper">
           <button onClick={handleBack} className="back-btn">Back</button>

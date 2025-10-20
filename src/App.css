@@ -12,24 +12,21 @@ header {
   border-bottom: 1px solid #ccc;
 }
 
-header h1 {
+/* header h1 {
   font-size: 2.5rem;
   color: rgb(0, 6, 195);
   margin: 0;
-}
+} */
 
-header p {
+
+/* header p {
   margin-top: 0.5rem;
   color: #555;
   margin-bottom: 0.5rem;
-}
+} */
 
-footer {
-  margin-top: auto;
-  padding: 1rem;
-  font-size: 0.9rem;
-  color: #424242;
-  text-align: center;
+.change-background-color {
+    background-color: #AAB7B8;
 }
 
 label {
@@ -59,41 +56,6 @@ textarea {
   position: absolute;
   top: 1rem;
   right: 1.5rem;
-}
-
-.logout-btn,
-.back-btn,
-.home-btn {
-  background-color: #e53935;
-  color: white;
-  border: none;
-  padding: 0.5rem 1.1rem;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-.back-btn {
-  background-color: #000000;
-}
-
-.back-btn:hover {
-  background-color: #333333;
-}
-
-.home-btn {
-  background-color: #43a047;
-  color: white;
-}
-
-.home-btn:hover {
-  background-color: #2e7d32;
-}
-
-.logout-btn:hover {
-  background-color: #c62828;
 }
 
 .form-group {
@@ -126,44 +88,57 @@ textarea {
   transition: all 0.3s ease;
 }
 
-.login-button.blue {
-  background-color: #1976d2;
-  color: white;
+.login-button-landing.blue {
+  width: 100%;
+  padding: 12px 20px;
+  background: #564E58;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  /* Add transform and box-shadow to the transition list and increase time */
+  transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.login-button.blue:hover {
-  background-color: #0d47a1;
+.login-button-landing.blue:hover {
+  background-color: #49434a; /* Slightly darker background */
+  
+  /* 1. Scale: Make the button 3% bigger */
+  transform: scale(1.02); 
+  
+  /* 2. Shadow: Add a large, soft shadow to make it appear lifted */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
 
-.login-button.green {
-  background-color: #43a047;
-  color: white;
+.login-button-landing.green {
+  width: 100%;
+  padding: 12px 20px;
+  background: #877666;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  /* Add transform and box-shadow to the transition list and increase time */
+  transition: background 0.4s ease, color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
 }
 
-.login-button.green:hover {
-  background-color: #2e7d32;
+.login-button-landing.green:hover {
+  background-color: #886c4f; /* Slightly darker background */
+  
+  /* 1. Scale: Make the button 3% bigger */
+  transform: scale(1.02); 
+  
+  /* 2. Shadow: Add a large, soft shadow to make it appear lifted */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
 }
 
-.login-button.black {
-  background-color: #000000;
-  color: white;
-}
-
-.login-button.black:hover {
-  background-color: #333333;
-}
-
-.login-button.red {
-  background-color: #e53935;
-  color: white;
-}
-
-.login-button.red:hover {
-  background-color: #b71c1c;
-}
 
 .contact-card {
-  background-color: #fff8e1;
+  background-color: #D5D8DC;
   padding: 1rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -237,25 +212,35 @@ textarea {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #e3f2fd, #fffde7);
-  align-items: center;
+  background: url('../public/images/login6.jpg') no-repeat center center;
+  background-size: cover;
   justify-content: center;
+  overflow: hidden;
 }
 
 .landing-header {
   text-align: center;
   margin: 2rem;
-}
-
-.landing-logo {
-  width: 220px;
-  height: 220px;
+  ;
 }
 
 .landing-title {
-  font-size: 2.5rem;
-  color: #0d47a1;
+  font-size: 3.0rem;
+  color: #ffffff;
   margin: 0;
+  padding-top: 190px;
+}
+
+.landing-footer {
+  color: #ffffff;
+  background-color: transparent;
+  border: transparent;
+  box-shadow: none;
+}
+
+.landing-header.fade-in.delay-1 {
+  background-color: transparent;
+  border: transparent;
 }
 
 .login-options {
@@ -266,93 +251,615 @@ textarea {
   justify-content: center;
 }
 
-/*Login Pages*/
+.login-link {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+/* Login Pages */
 .admin-login-page {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #e3f2fd;
+  min-height: 100vh;
+  /* Premium Dark Background: Deep Navy/Charcoal gradient */
+  background: linear-gradient(135deg, #0A1931 0%, #061020 100%);
+  position: relative;
+  overflow: hidden;
 }
 
 .admin-login-card {
-  background: white;
-  padding: 2.5rem;
+  /* Premium Form Color: Soft, elegant dark gray/blue */
+  background: #182A45;
+  /* Subtle border/shadows with a Sapphire Blue accent */
+  border: 1px solid #2B4C77;
+  box-shadow:
+    0 0 15px rgba(0, 150, 255, 0.1),
+    /* Subtle blue glow */
+    0 8px 30px rgba(0, 0, 0, 0.8);
+  /* Deep shadow for depth */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  /* Retain 3D perspective and sizing */
+  perspective: 800px;
+  padding: 0;
+  padding-bottom: 0.7rem;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  width: 100%;
-  max-width: 400px;
+  width: 90%;
+  /* Use % for mobile responsiveness */
+  max-width: 350px;
+  /* Increased max-height to accommodate new links */
+  max-height: 520px;
   text-align: center;
+  color: #E0E0E0;
+  position: relative;
+  z-index: 1;
 }
 
-.admin-login-card h2 {
-  margin-bottom: 1.5rem;
-  color: #0d47a1;
+
+/* --- 2. Heading Color and Style (The Projected Element) --- */
+.login-header {
+  position: relative;
+  width: 100%;
+  padding: 0.8rem 0;
+  z-index: 10;
+
+  /* Premium Heading Color: Reflective Deep Blue */
+  background: linear-gradient(135deg, #1C3358 0%, #0B1A2F 100%);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  box-shadow: inset 0 -3px 5px rgba(0, 150, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.8);
+
+  transform-origin: center top;
+  transform: perspective(2000px) rotateX(5deg);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.public-header-container{
+  background: linear-gradient(135deg, #1C3358 0%, #0B1A2F 100%);
+  box-shadow: inset 0 -3px 5px rgba(0, 150, 255, 0.1), 0 4px 10px rgba(0, 0, 0, 0.8);
+  border: none;
+}
+
+.public-header-container h1 {
+    /* Premium Heading Text Color: Vibrant Electric Blue */
+  color: #00BFFF;
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(0, 150, 255, 0.6);
+  font-size: 2.0rem;
+}
+
+.public-header-container p{
+    /* Premium Heading Text Color: Vibrant Electric Blue */
+  color: #00BFFF;
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(0, 150, 255, 0.6);
+  font-size: .9rem;
+}
+
+.admin-login-card .user-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 0.2rem;
+  /* Subtle blue glow for icon */
+  filter: drop-shadow(0 0 5px rgba(0, 150, 255, 0.5));
+}
+
+.admin-login-card h3 {
+  /* Premium Heading Text Color: Vibrant Electric Blue */
+  color: #00BFFF;
+  margin-top: 0.1rem;
+  margin-bottom: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-shadow: 0 0 8px rgba(0, 150, 255, 0.6);
+  font-size: 1.5rem;
+}
+
+/* NEW: Wrapper to restore internal padding for the form */
+.login-content {
+  padding: 0 1.5rem;
+  padding-top: 1.5rem;
+}
+
+/*to modify new user registration*/
+.new-user{
+  /* Premium Form Color: Soft, elegant dark gray/blue */
+  background: linear-gradient(135deg, #0A1931 0%, #061020 100%);
+  /* Subtle border/shadows with a Sapphire Blue accent */
+  border: 1px solid #2B4C77;
+  box-shadow:
+    0 0 15px rgba(0, 150, 255, 0.1),
+    /* Subtle blue glow */
+    0 8px 30px rgba(0, 0, 0, 0.8);
+  /* Deep shadow for depth */
+}
+
+.public-report-form{
+  /* Premium Form Color: Soft, elegant dark gray/blue */
+  background: #182A45;
+  /* Subtle border/shadows with a Sapphire Blue accent */
+  /* border: 1px solid #2B4C77; */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  /* box-shadow:
+    0 0 15px rgba(0, 150, 255, 0.1), */
+    /* Subtle blue glow */
+    /* 0 8px 30px rgba(0, 0, 0, 0.8); */
+  /* Deep shadow for depth */
+  /* backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); */
+
+  /* Retain 3D perspective and sizing */
+  max-width: 600px;
+  margin: 2rem auto;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  padding-bottom: 0.25rem;
+  border-radius: 12px;
+}
+
+/* to modify public home page*/
+.header-container{
+  background: linear-gradient(135deg, #2E4053 0%, #233548 100%);
+  padding: 2rem;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.3), /* existing main shadow */
+    0 12px 30px rgba(0, 0, 0, 0.2), /* deeper shadow */
+    inset 0 -2px 5px rgba(255, 255, 255, 0.1); /* inner highlight for depth */
+  border-bottom: none;
+  text-align: center;
+  transform: translateY(0px); /* small lift */
+}
+
+.header-container h1{
+  color: #F1C40F;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.header-container p{
+  color: #F1C40F;
+  font-size: 1.1rem;
+}
+
+/*Profile Page*/
+.profile-view-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 0 0;
+  padding-left: 1rem;
+}
+
+.profile-btn {
+  background: #fffb09;
+  color: #3a17ff;
+  border: none;
+  padding: 0.9rem 2.2rem;
+  border-radius: 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s, color 0.2s, transform 0.2s ease-in;
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.profile-btn:hover {
+  background-color: #f7cf2f;
+  transform: translateY(-4px) scale(1.05); /* Pop-up effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for lifted look */
+}
+
+/*Report Form*/
+.report-disaster{
+  background-color: #AAB7B8;
+}
+.report-form {
+  /* Premium Form Color: Soft, elegant dark gray/blue */
+  background: #D5D8DC;
+  /* Subtle border/shadows with a Sapphire Blue accent */
+  /* border: 1px solid #2B4C77; */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #2B4C77;
+  box-shadow:
+    0 0 15px rgba(0, 150, 255, 0.1),
+    /* Subtle blue glow */
+    0 8px 30px rgba(0, 0, 0, 0.8);
+  /* box-shadow:
+    0 0 15px rgba(0, 150, 255, 0.1), */
+    /* Subtle blue glow */
+    /* 0 8px 30px rgba(0, 0, 0, 0.8); */
+  /* Deep shadow for depth */
+  /* backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px); */
+
+  /* Retain 3D perspective and sizing */
+  max-width: 600px;
+  margin: 2rem auto;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  padding-bottom: 0.25rem;
+  border-radius: 12px;
+}
+
+.public-footer {
+  background: linear-gradient(135deg, #1C3358 0%, #0B1A2F 100%);
+  box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5); /* Top shadow */
+  border: none;
+  color: #ffffff;
+}
+
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.8rem;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  /* Slightly tighter spacing */
+}
+
+.form-group-login{
+  position: relative;
+  margin-bottom: 1.8rem;
+  margin-left: 1.2rem;
+  margin-right: 1.2rem;
+  /* Slightly tighter spacing */
+}
+
+
+.form-group label {
+  color: #444c57;
+  font-size: 0.9rem;
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.form-group-login label {
+  color: #9AAABF;
+  font-size: 0.9rem;
+  display: block;
+  text-align: left;
+  margin-bottom: 5px;  
+}
+
+
+.form-group input {
+  /* 💡 Optimized for fit and responsiveness */
+  width: 100%;
+  /* Full width */
+  box-sizing: border-box;
+  /* Ensures padding doesn't cause overflow */
+  padding: 10px 0;
+  /* Only vertical padding */
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #85a2c5;
+  color: #000000;
+  font-size: 1rem;
+  outline: none;
+  transition: border-bottom 0.3s;
+}
+
+.form-group-login input{
+  /* 💡 Optimized for fit and responsiveness */
+  width: 100%;
+  /* Full width */
+  box-sizing: border-box;
+  /* Ensures padding doesn't cause overflow */
+  padding: 10px 0;
+  /* Only vertical padding */
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #3A5F8C;
+  color: #FFFFFF;
+  font-size: 1rem;
+  outline: none;
+  transition: border-bottom 0.3s;
+}
+
+.form-group input::placeholder {
+  color: #3c4a5b;
+}
+
+.form-group-login input::placeholder {
+  color: #6a8bb2;
+}
+
+.form-group input:focus {
+  /* Thicker, vibrant border on focus */
+  border-bottom: 2px solid #90a5c1;
+  box-shadow: none;
+}
+
+.form-group-login input:focus{
+  border-bottom: 2px solid #0788b3;
+  box-shadow: none;
+}
+
+/* --- 4. Button Colors --- */
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 2rem;
+}
+
+.login-button {
+  flex-grow: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Back Button (Dark Gray/Charcoal) */
+.login-button.black {
+  background: #3A4C63;
+  color: #FFFFFF;
+  border-radius: 25px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.login-button.black:hover {
+  background: #4A5C73;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Login Button (Electric Blue Accent) */
+.login-button.blue {
+  background: linear-gradient(145deg, #00BFFF, #0099FF);
+  color: #FFFFFF;
+  border-radius: 25px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.login-button.blue:hover {
+  box-shadow: 0 4px 15px rgba(0, 150, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+.login-button.green{
+  background: linear-gradient(145deg, #00BFFF, #0099FF);
+  color: #FFFFFF;
+  border-radius: 25px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+.login-button.green:hover {
+  box-shadow: 0 4px 15px rgba(0, 150, 255, 0.6);
+  transform: translateY(-2px);
+}
+
+/* Reset Button (Subtle Dark Red/Maroon) */
+.login-button.red {
+  background: #803333;
+  color: #FFFFFF;
+  border-radius: 25px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.login-button.red:hover {
+  background: #994444;
+  box-shadow: 0 0 8px rgba(255, 50, 50, 0.2);
+  transform: translateY(-2px);
+}
+
+/* --- 5. Navigational Links --- */
+
+.login-links-container {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  /* Separator line matching card internal color */
+  border-top: 1px solid #1C3358;
+}
+
+.login-links-container {
+  text-align: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #1C3358;
+  /* Added display: flex and flex-direction: column to ensure stacking */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.login-link {
+  color: #00BFFF;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.2s, text-decoration 0.2s;
+}
+
+.login-link:hover {
+  color: #4DB8FF;
+  text-decoration: underline;
 }
 
 .error-msg {
-  color: red;
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
+  color: #FF5555;
+  /* Soft red for errors */
+  margin-top: 0.8rem;
+  /* Adjusted for better vertical spacing */
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+
+/* footer {
+    grid-column: span 2;
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    
+    color: #6A8BB2;
+    font-size: 0.8rem;
+} */
+
+/* --- 5. Mobile Responsiveness for Grid --- */
+
+@media (max-width: 768px) {
+    .registration-form-grid {
+        /* Collapse to a single column on small screens */
+        grid-template-columns: 1fr;
+    }
+    .registration-form-grid .full-span {
+        /* Ensure all fields take full width */
+        grid-column: span 1;
+    }
 }
 
 /*Home Pages*/
-.alert-section {
-  padding: 0.25rem 2rem 0.25rem;
+.home-btn,
+.logout-btn,
+.back-btn{
+  background-color: #F1C40F;
+  border: none;
+  color: #FFFFFF;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.home-btn:hover,
+.logout-btn:hover,
+.back-btn:hover {
+  background-color: #D4AC0D;
+  transform: translateY(-4px) scale(1.05); /* Pop-up effect */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for lifted look */
+}
+
+/* HEADER */
+.header-container1 {
+  background: linear-gradient(135deg, #2E4053 0%, #233548 100%);
+  padding: 2rem;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.3), /* existing main shadow */
+    0 12px 30px rgba(0, 0, 0, 0.2), /* deeper shadow */
+    inset 0 -2px 5px rgba(255, 255, 255, 0.1); /* inner highlight for depth */
+  border-bottom: none;
+  text-align: center;
+  transform: translateY(0px); /* small lift */
+}
+.header-container1 h1 {
+  color: #F1C40F;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+.header-container1 p {
+  color: #F1C40F;
+  font-size: 1.1rem;
+}
+
+/* ALERT SECTION */
+.alert-section {
+  padding: 2rem;
+  background-color: #AAB7B8;
+}
 .alert-section h2 {
   font-size: 2rem;
   color: #1e40af;
   margin-bottom: 1rem;
 }
 
+/* ALERT LIST */
 .alert-list {
-  background: #ffffff;
-  padding: 1rem;
-  margin-bottom: 0;
-  border-radius: 8px;
+  background: #D5D8DC;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   list-style-type: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
-
 .alert-list li {
-  margin-bottom: 0.5rem;
-  padding-left: 1rem;
+  margin-bottom: 0.75rem;
+  padding: 1rem;
+  border-left: 5px solid #c8cdd4;
+  background-color: #F2F3F4;
+  border-radius: 6px;
   position: relative;
+  transition: background 0.3s ease;
+}
+.alert-list li:hover {
+  background-color: #E5E8E8;
 }
 
+/* GRID SETUP */
 .p {
   grid-template-columns: repeat(3, minmax(250px, 1fr));
 }
-
+.action-grid {
+  margin: 0;
+  padding: 2rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  background-color: #AAB7B8;
+}
 .action-grid a {
   text-decoration: none;
   color: inherit;
 }
 
+/* ACTION CARD */
+.action-card {
+  background-color: #D5D8DC;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.action-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  background-color: #CCD1D1;
+}
 .action-card-icon {
   font-size: 3.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #1E3A8A;
 }
-
 .action-card h3 {
   margin-top: 0.5rem;
-  font-size: 1.3rem;
-  color: #222;
+  font-size: 1.4rem;
+  color: #2C3E50;
+  font-weight: 600;
 }
 
-/*Report Form*/
-.report-form {
-  max-width: 600px;
-  margin: 2rem auto;
-  margin-bottom: 0;
-  padding: 2rem;
-  padding-bottom: 0.25rem;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* FOOTER */
+footer {
+  background-color: #D5D8DC;
+  padding: 1.5rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #424242;
+  box-shadow: 0 -8px 20px rgba(0, 0, 0, 0.2); /* 3D shadow */
 }
+
+
 
 /*Live Pages*/
 .live-updates-page {
@@ -614,47 +1121,18 @@ textarea {
   text-decoration: underline;
 }
 
-/*Profile Page*/
-.profile-view-container {
-  display: flex;
-  justify-content: center;
-  margin: 1rem 0 0 0;
-}
-
-.profile-btn {
-  background: #fffb09;
-  color: #3a17ff;
-  border: none;
-  padding: 0.9rem 2.2rem;
-  border-radius: 30px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  transition: background 0.2s, color 0.2s, transform 0.2s ease-in;
-  display: flex;
-  align-items: center;
-  gap: 0.7rem;
-}
-
-.profile-btn:hover {
-  background: #0056b3;
-  color: #ffffff;
-  transform: translateY(-2px) scale(1.05);
-}
-
 .newuserprofile {
   display: flex;
   justify-content: center;
   align-items: flex-start;
   padding: 40px;
-  background: #f9f9f9;
+  background: #AAB7B8;
   min-height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .newuserprofile .profile-card {
-  background: #fff;
+  background: #D5D8DC;
   border-radius: 15px;
   padding: 30px;
   width: 700px;
@@ -750,6 +1228,17 @@ textarea {
   transform: scale(1.05);
 }
 
+.newuserprofile .btn-cancel{
+  background-color: white;
+  color: #000000;
+}
+
+.newuserprofile .btn-cancel:hover {
+  background: #ececec;
+  transform: scale(1.05);
+}
+
+
 @media (max-width: 768px) {
   .newuserprofile .profile-card {
     width: 100%;
@@ -759,6 +1248,22 @@ textarea {
   .newuserprofile .profile-form {
     grid-template-columns: 1fr;
   }
+}
+
+.live-div {
+    display: flex;
+    flex-direction: column;
+    background-color:#AAB7B8 ;
+}
+
+.live-updates-page{
+  min-height: 100vh;
+  min-width: 60%;
+  background-color: #D5D8DC;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* Relief Camp Tables*/
@@ -810,14 +1315,54 @@ textarea {
   color: #222;
 }
 
+.resource-form {
+  min-height: 100vh;
+}
+
+.contacts-card {
+  background-color: #D5D8DC;
+}
+
 @media (max-width: 600px) {
   .camp-action-card {
     padding: 15px;
   }
+
   .camp-action-card h3 {
     font-size: 1.1rem;
   }
+
   .camp-action-card p {
     font-size: 0.9rem;
   }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+  will-change: opacity, transform;
+}
+
+.fade-in.delay-1 {
+  animation-delay: 0.3s;
+}
+
+.fade-in.delay-2 {
+  animation-delay: 0.6s;
+}
+
+.fade-in.delay-3 {
+  animation-delay: 0.9s;
 }
