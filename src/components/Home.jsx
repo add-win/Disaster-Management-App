@@ -129,7 +129,7 @@ export const AdminHome = () => {
         <Link to="/list-disasters">
           <ActionCard title="List of Disasters Occurred" icon="📋" />
         </Link>
-        <Link to='/new-user'>
+        <Link to='/user-registrations'>
           <ActionCard title="New User Registration" icon="👥" />
         </Link>
 
