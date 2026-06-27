@@ -1,74 +1,162 @@
-<<<<<<< HEAD
-# disaster-management-app
-=======
-# Getting Started with Create React App
+# 🚨 Disaster Management App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A comprehensive, full-stack Disaster Management and Relief platform designed to coordinate emergency responses, volunteer deployment, donation distribution, and shelter/resource tracking during natural or man-made disasters.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🌟 Features
 
-### `npm start`
+This application comprises a multi-role workspace catering to **Admins**, **Volunteers**, **Victims**, and the **General Public**:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Real-time Alerting**: Admin-managed broadcast system to notify the public of active warnings and safety precautions.
+- **Disaster Reporting & Tracking**: Victims and observers can report disasters with detailed locations, GPS coordinates (latitude/longitude), and types of disaster.
+- **Volunteer Coordination**: Easy volunteer registration, profile updates, and active task assignment.
+- **Relief Camp Logistics**: Complete tracking of relief camps, occupant listings, and camp details.
+- **Resource Inventory Management**: Real-time updates on crucial resources (food, water, medicine, equipment) at various camp locations.
+- **Donation Processing**: Portal for managing incoming donations and tracking allocation.
+- **Role-based Authentication**: Secure portals for Admins and Public users using bcrypt hashing.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 🛠️ Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Frontend
+- **Framework**: React.js (v19)
+- **Routing**: React Router DOM (v7)
+- **Styling**: Responsive Vanilla CSS
 
-### `npm run build`
+### Backend
+- **Runtime**: Node.js
+- **Server**: Express.js
+- **Database Connector**: MySQL2 (using promise-based connection pools)
+- **Security**: bcrypt for secure password hashing & CORS configuration
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Database
+- **Engine**: MySQL
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🚀 Getting Started
 
-### `npm run eject`
+### Prerequisites
+Make sure you have the following installed on your machine:
+- [Node.js](https://nodejs.org/) (v16 or higher recommended)
+- [MySQL Server](https://www.mysql.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Setup Instructions
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 1. Clone the Repository
+```bash
+git clone https://github.com/your-username/disaster-management-app.git
+cd disaster-management-app
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### 2. Install Dependencies
+```bash
+npm install
+```
 
-## Learn More
+#### 3. Database Schema Configuration
+Create a database named `drcp` (or as configured in your environment) in MySQL and run the database initialization queries. Below is the schema structure used by the backend APIs:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```sql
+CREATE DATABASE drcp;
+USE drcp;
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+-- Admins Table
+CREATE TABLE admins (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL
+);
 
-### Code Splitting
+-- Public Users Table
+CREATE TABLE public (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(255) UNIQUE NOT NULL,
+  userpass VARCHAR(255) NOT NULL,
+  usermail VARCHAR(255) UNIQUE NOT NULL,
+  userph VARCHAR(20) NOT NULL
+);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+-- Disaster Reports Table
+CREATE TABLE disaster (
+  did INT AUTO_INCREMENT PRIMARY KEY,
+  ddate DATE NOT NULL,
+  dlocation VARCHAR(255) NOT NULL,
+  dlatitude DECIMAL(10, 8) NOT NULL,
+  dlongtitude DECIMAL(11, 8) NOT NULL,
+  dtype VARCHAR(100) NOT NULL,
+  ddistrict VARCHAR(100) NOT NULL
+);
 
-### Analyzing the Bundle Size
+-- Emergency Alerts Table
+CREATE TABLE alerts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  message TEXT NOT NULL,
+  date DATETIME NOT NULL
+);
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+-- Add other tables (volunteers, victims, donations, camps, resources) as per app logic.
+```
 
-### Making a Progressive Web App
+#### 4. Configure Environment Variables
+Create a `.env` file in the root directory (you can use `.env.example` as a template):
+```bash
+cp .env.example .env
+```
+Open `.env` and fill in your local configurations:
+```env
+PORT=5000
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=your_mysql_password
+DB_DATABASE=drcp
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+### Running the Application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Run the Backend Server
+Start the Node/Express backend (runs on port 5000 by default):
+```bash
+node server.js
+```
 
-### Deployment
+#### Run the Frontend Client
+In a new terminal window, start the React development server:
+```bash
+npm start
+```
+The React frontend will start on [http://localhost:3000](http://localhost:3000).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## 📁 Directory Structure
+```text
+disaster-management-app/
+├── public/                 # Static assets
+├── src/
+│   ├── components/         # React Components (UI & Logic)
+│   │   ├── AdminLogin.jsx  # Admin login page
+│   │   ├── Disaster.jsx    # Disaster reporting page
+│   │   ├── Donate.jsx      # Donation interface
+│   │   ├── Home.jsx        # Landing dashboard
+│   │   └── ...             # Other system interfaces
+│   ├── App.js              # Application entry and routing
+│   ├── index.js            # React DOM mounting
+│   └── index.css           # Global design stylesheet
+├── server.js               # Node.js/Express API Server
+├── .env.example            # Environment configuration template
+├── .gitignore              # Files excluded from git
+├── package.json            # Scripts & dependencies definition
+└── README.md               # Project documentation
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
->>>>>>> 99f527e (Initial commit)
+---
+
+## 🛡️ Safety & Contribution
+If you encounter bugs, security vulnerabilities, or have suggestions for improvements, feel free to open an issue or submit a pull request!
